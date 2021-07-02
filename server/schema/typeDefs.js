@@ -7,7 +7,6 @@ const typeDefs = gql`
     name: String!
     description: String!
     due: String
-    created_At: Date!
   }
 
   type User {
@@ -24,7 +23,9 @@ const typeDefs = gql`
   }
 
   type Mutation {
-
+    createToDo(name: String!, description: String!): ToDo
+    editToDo(_id: String!): ToDo
+    deleteToDo(_id: String!)
   }
   `;
 
