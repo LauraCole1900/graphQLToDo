@@ -1,7 +1,9 @@
 {
-  "name": "client",
+  "name": "graphqltodo",
   "version": "0.1.0",
+  "description": "A React-GraphQL-MongoDO To-Do App",
   "private": true,
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
