@@ -23,6 +23,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    createUser(email: String!, password: String!)
     createToDo(name: String!, description: String!): ToDo
     editToDo(_id: String!): ToDo
     deleteToDo(_id: String!)

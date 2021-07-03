@@ -1,0 +1,27 @@
+:root {
+  --red: #ff0000;
+  --yellow: #fff000;
+  --darkGreen: #005c00;
+  --darkBlue: #032c4b;
+  --silver: #e2e2e2;
+  --bronze: #936418;
+  --gold: #ffd200;
+  --black: #000000;
+}
+
+h1 {
+  color: var(--darkGreen);
+}
+
+h2 {
+  color: var(--darkBlue);
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.red {
+  color: var(--red);
+}
