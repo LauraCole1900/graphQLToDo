@@ -13,6 +13,7 @@ const typeDefs = gql`
     _id: ID!
     email: String!
     password: String!
+    todos: [ToDo]
   }
 
   # GET one user
