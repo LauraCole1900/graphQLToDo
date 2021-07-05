@@ -6,7 +6,12 @@ export const ADD_USER = gql`
       _id
       email
       password
-      todos
+      todos {
+        _id
+        name
+        description
+        due
+      }
     }
   }
 `;

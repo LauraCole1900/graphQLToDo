@@ -19,6 +19,9 @@ export const QUERY_USERS = gql`
   }
 
   query oneUser {
-    user
+    oneUser {
+      _id
+      email
+    }
   }
   `;

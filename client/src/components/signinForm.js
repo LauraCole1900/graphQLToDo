@@ -16,7 +16,7 @@ const SigninForm = (props) => {
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setUser({ [name]: value })
+    setUser({ ...user, [name]: value })
   };
 
   // Handles button click
@@ -26,6 +26,7 @@ const SigninForm = (props) => {
     switch (props.buttonName) {
       case "Sign Up":
         console.log(props.buttonName);
+        console.log({ user })
         try {
           const { data } = await addUser({
             variables: { user }
