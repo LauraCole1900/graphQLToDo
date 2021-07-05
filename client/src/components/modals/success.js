@@ -1,5 +1,6 @@
 import React from "react";
 import { Col, Modal, Row } from "react-bootstrap";
+import { SigninForm } from "../";
 import "./style.css";
 
 const SuccessModal = (props) => {
@@ -17,7 +18,12 @@ const SuccessModal = (props) => {
         <Modal.Body>
           <Row>
             <Col sm={12}>
-              <p>You've signed up for My GraphQL To-Do app.</p>
+              <p>You've signed up for My GraphQL To-Do app. Please log in to continue.</p>
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={12}>
+              <SigninForm setBtnName={props.setBtnName} buttonName={props.buttonName} handleClick={props.handleClick} />
             </Col>
           </Row>
         </Modal.Body>

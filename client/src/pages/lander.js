@@ -7,7 +7,12 @@ import "./style.css";
 const LandingPage = () => {
   const [btnName, setBtnName] = useState();
   const [showError, setShowError] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(true);
+
+  const handleShowError = () => setShowError(true);
+  const handleHideError = () => setShowError(false);
+  const handleShowSuccess = () => setShowSuccess(true);
+  const handleHideSuccess = () => setShowSuccess(false);
 
   // handles button click
   const handleClick = () => {
@@ -37,9 +42,9 @@ const LandingPage = () => {
           <LoginForm setBtnName={setBtnName} handleClick={handleClick} />
         </Row>
 
-        <ErrorModal show={showError === true} hide={showError === false} btnName={btnName} />
+        <ErrorModal show={showError === true} hide={() => handleHideError()} btnName={btnName} />
 
-        <SuccessModal show={showSuccess === true} hide={showSuccess === false} />
+        <SuccessModal show={showSuccess === true} hide={() => handleHideSuccess()} buttonName="Login" setBtnName={setBtnName} handleClick={handleClick} />
 
       </Container>
     </>
