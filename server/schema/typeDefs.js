@@ -24,10 +24,10 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createUser(email: String!, password: String!)
+    createUser(email: String!, password: String!): User
     createToDo(name: String!, description: String!): ToDo
     editToDo(_id: String!): ToDo
-    deleteToDo(_id: String!)
+    deleteToDo(_id: ID!): String
   }
   `;
 
