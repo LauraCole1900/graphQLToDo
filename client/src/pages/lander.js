@@ -7,22 +7,12 @@ import "./style.css";
 const LandingPage = () => {
   const [btnName, setBtnName] = useState();
   const [showError, setShowError] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(true);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleShowError = () => setShowError(true);
   const handleHideError = () => setShowError(false);
   const handleShowSuccess = () => setShowSuccess(true);
   const handleHideSuccess = () => setShowSuccess(false);
-
-  // handles button click
-  const handleClick = () => {
-    switch (btnName) {
-      case "Sign Up":
-        break;
-      default:
-
-    }
-  }
 
 
   return (
@@ -39,12 +29,12 @@ const LandingPage = () => {
           </Col>
         </Row>
         <Row>
-          <LoginForm setBtnName={setBtnName} handleClick={handleClick} />
+          <LoginForm setBtnName={setBtnName} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} />
         </Row>
 
         <ErrorModal show={showError === true} hide={() => handleHideError()} btnName={btnName} />
 
-        <SuccessModal show={showSuccess === true} hide={() => handleHideSuccess()} buttonName="Login" setBtnName={setBtnName} handleClick={handleClick} />
+        <SuccessModal show={showSuccess === true} hide={() => handleHideSuccess()} buttonName="Login" setBtnName={setBtnName} />
 
       </Container>
     </>

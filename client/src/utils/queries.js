@@ -8,4 +8,17 @@ export const QUERY_USERS = gql`
       todos
     }
   }
+
+  query allTodos {
+    todos {
+      _id
+      name
+      description
+      due
+    }
+  }
+
+  query oneUser {
+    user
+  }
   `;

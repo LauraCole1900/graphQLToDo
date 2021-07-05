@@ -11,10 +11,10 @@ const resolvers = {
   },
 
   Mutation: {
-    createUser: async (_, { email, password }) => {
+    addUser: async (_, { email, password }) => {
       return await User.create({ email, password })
     },
-    createToDo: async (_, { name, description, due }) => {
+    addToDo: async (_, { name, description, due }) => {
       return await ToDo.create({ name, description, due })
     },
     editToDo: async (_, { name, description, due }) => {

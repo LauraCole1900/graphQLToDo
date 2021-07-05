@@ -1,8 +1,13 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useMutation, useQuery } from "@apollo/client";
 import { Button, Col, Form, Row } from "react-bootstrap"
+import { ADD_USER } from "../utils/mutations";
 import "./style.css";
 
 const SigninForm = (props) => {
+  const [addUser, { error }] = useMutation(ADD_USER);
+  const history = useHistory();
   const [user, setUser] = useState({
     email: "",
     password: ""
@@ -15,10 +20,27 @@ const SigninForm = (props) => {
   };
 
   // Handles button click
-  const handleButtonClick = (e) => {
+  const handleButtonClick = async (e) => {
     e.preventDefault();
     props.setBtnName(props.buttonName)
-    props.handleClick();
+    switch (props.buttonName) {
+      case "Sign Up":
+        console.log(props.buttonName);
+        try {
+          const { data } = await addUser({
+            variables: { user }
+          });
+          window.location.reload();
+        }
+        catch (err) {
+          props.handleShowError();
+          console.log(err);
+        }
+        history.push(`/mytodos`)
+        break;
+      default:
+
+    }
   }
 
 
@@ -29,16 +51,16 @@ const SigninForm = (props) => {
           <Form className="signupForm">
             <Form.Group>
               <Form.Label>Email: <span className="red">*</span></Form.Label>
-              <Form.Control type="email" name="userEmail" placeholder="name@email.com" value={user.userEmail} onChange={handleInputChange} />
+              <Form.Control type="email" name="email" placeholder="name@email.com" value={user.email} onChange={handleInputChange} />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Password: <span className="red">*</span></Form.Label>
-              <Form.Control type="password" name="userPassword" placeholder="password" value={user.userPassword} onChange={handleInputChange} />
+              <Form.Control type="password" name="password" placeholder="password" value={user.password} onChange={handleInputChange} />
             </Form.Group>
           </Form>
 
-          <Button className="button" onClick={(e) => handleButtonClick(e)}>{props.buttonName}</Button>
+          <Button data-toggle="popover" title={props.buttonName} className="button" onClick={(e) => handleButtonClick(e)}>{props.buttonName}</Button>
 
         </Col>
       </Row>
