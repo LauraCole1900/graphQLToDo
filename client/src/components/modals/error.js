@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Modal, Row } from "react-bootstrap";
+import { Button, Col, Modal, Row } from "react-bootstrap";
 import "./style.css";
 
 const ErrorModal = (props) => {
@@ -34,6 +34,9 @@ const ErrorModal = (props) => {
             </Col>
           </Row>
         </Modal.Body>
+        <Modal.Footer>
+          <Button className="button" data-toggle="popover" title="Try Again" onClick={props.hide}>Try Again</Button>
+        </Modal.Footer>
       </Modal>
     </>
   )
