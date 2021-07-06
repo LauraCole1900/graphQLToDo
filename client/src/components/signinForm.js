@@ -34,8 +34,9 @@ const SigninForm = (props) => {
           props.handleShowSuccess();
         }
         catch (error) {
+          console.log(JSON.stringify(error.message, null, 2));
+          props.setErrMessage(error.message);
           props.handleShowError();
-          console.log(JSON.stringify(error, null, 2));
         }
         break;
       default:

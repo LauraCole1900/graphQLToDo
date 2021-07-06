@@ -22,10 +22,10 @@ const LoginForm = (props) => {
         <Row>
           <Col sm={2}></Col>
           <Col sm={4}>
-            <SigninForm setBtnName={props.setBtnName} buttonName="Login" handleShowError={props.handleShowError} handleShowSuccess={props.handleShowSuccess} />
+            <SigninForm setBtnName={props.setBtnName} buttonName="Login" handleShowError={props.handleShowError} handleShowSuccess={props.handleShowSuccess} setErrMessage={props.setErrMessage} />
           </Col>
           <Col sm={4}>
-            <SigninForm setBtnName={props.setBtnName} buttonName="Sign Up" handleShowError={props.handleShowError} handleShowSuccess={props.handleShowSuccess} />
+            <SigninForm setBtnName={props.setBtnName} buttonName="Sign Up" handleShowError={props.handleShowError} handleShowSuccess={props.handleShowSuccess} setErrMessage={props.setErrMessage} />
           </Col>
         </Row>
 

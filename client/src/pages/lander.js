@@ -8,6 +8,7 @@ const LandingPage = () => {
   const [btnName, setBtnName] = useState();
   const [showError, setShowError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [errMessage, setErrMessage] = useState();
 
   const handleShowError = () => setShowError(true);
   const handleHideError = () => setShowError(false);
@@ -29,10 +30,10 @@ const LandingPage = () => {
           </Col>
         </Row>
         <Row>
-          <LoginForm setBtnName={setBtnName} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} />
+          <LoginForm setBtnName={setBtnName} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} setErrMessage={setErrMessage} />
         </Row>
 
-        <ErrorModal show={showError === true} hide={() => handleHideError()} btnName={btnName} />
+        <ErrorModal show={showError === true} hide={() => handleHideError()} btnName={btnName} errMessage={errMessage} />
 
         <SuccessModal show={showSuccess === true} hide={() => handleHideSuccess()} buttonName="Login" setBtnName={setBtnName} />
 
