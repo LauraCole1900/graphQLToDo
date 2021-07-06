@@ -30,7 +30,7 @@ const ErrorModal = (props) => {
                   {props.errMessage === "User validation failed: password: Path `password` is required." &&
                     <p>Please enter a password!</p>}
                 </>
-                : <p>Your login couldn't be processed at this time.</p>}
+                : <p>Your login information couldn't be located at this time. Are you sure you've signed up?</p>}
             </Col>
           </Row>
         </Modal.Body>

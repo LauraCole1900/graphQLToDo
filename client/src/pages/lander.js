@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import { LoginForm } from "../components";
 import { ErrorModal, SuccessModal } from "../components/modals";
@@ -14,6 +14,10 @@ const LandingPage = () => {
   const handleHideError = () => setShowError(false);
   const handleShowSuccess = () => setShowSuccess(true);
   const handleHideSuccess = () => setShowSuccess(false);
+
+  useEffect(() => {
+
+  }, [showError]);
 
 
   return (

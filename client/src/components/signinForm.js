@@ -1,12 +1,17 @@
 import React, { useState } from "react";
+import { useParams } from "react-router";
 import { useHistory } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import { Button, Col, Form, Row } from "react-bootstrap"
-import { ADD_USER } from "../utils/mutations";
+import { ADD_USER, QUERY_ONE_USER, QUERY_USERS } from "../utils";
 import "./style.css";
 
 const SigninForm = (props) => {
-  const [addUser, { error, data }] = useMutation(ADD_USER);
+  const params = useParams();
+  const userId = params.id;
+  const [addUser, { addError, addData }] = useMutation(ADD_USER);
+  const { loading, error, data } = useQuery(userId ? QUERY_USERS : QUERY_ONE_USER,
+    { variables: { userId } });
   const history = useHistory();
   const [user, setUser] = useState({
     email: "",
@@ -22,10 +27,8 @@ const SigninForm = (props) => {
   // Handles button click
   const handleButtonClick = async (e) => {
     e.preventDefault();
-    props.setBtnName(props.buttonName)
     switch (props.buttonName) {
       case "Sign Up":
-        console.log(props.buttonName);
         try {
           const { data } = await addUser({
             variables: { ...user }
@@ -40,7 +43,20 @@ const SigninForm = (props) => {
         }
         break;
       default:
-        history.push(`/mytodos`)
+        try {
+          const authUser = data?.me || data?.user || {};
+          console.log({ authUser })
+          if (Object.keys(authUser).length) {
+            history.push(`/mytodos`)
+          } else {
+            throw Error;
+          }
+        }
+        catch (error) {
+          console.log(JSON.stringify(error.message))
+          props.setErrMessage(error.message);
+          props.handleShowError();
+        }
 
     }
   }

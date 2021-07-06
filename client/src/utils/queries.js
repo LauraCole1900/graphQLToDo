@@ -8,7 +8,9 @@ export const QUERY_USERS = gql`
       todos
     }
   }
+`;
 
+export const QUERY_TODOS = gql`
   query allTodos {
     todos {
       _id
@@ -17,11 +19,13 @@ export const QUERY_USERS = gql`
       due
     }
   }
+`;
 
+export const QUERY_ONE_USER = gql`
   query oneUser {
     oneUser {
       _id
       email
     }
   }
-  `;
+`;
