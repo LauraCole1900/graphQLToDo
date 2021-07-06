@@ -25,7 +25,7 @@ const ErrorModal = (props) => {
                   <p>Your signup couldn't be processed at this time.</p>
                   {codeArr?.includes("E11000") &&
                     <p>The email you entered has already been registered.</p>}
-                  {props.errMessage === "User validation failed: email: Path `email` is required." &&
+                  {(props.errMessage === "User validation failed: email: Path `email` is required." || codeArr?.includes("Validator")) &&
                     <p>Please enter a valid email!</p>}
                   {props.errMessage === "User validation failed: password: Path `password` is required." &&
                     <p>Please enter a password!</p>}
