@@ -6,7 +6,7 @@ import { ADD_USER } from "../utils/mutations";
 import "./style.css";
 
 const SigninForm = (props) => {
-  const [addUser, { error }] = useMutation(ADD_USER);
+  const [addUser, { error, data }] = useMutation(ADD_USER);
   const history = useHistory();
   const [user, setUser] = useState({
     email: "",
@@ -26,20 +26,20 @@ const SigninForm = (props) => {
     switch (props.buttonName) {
       case "Sign Up":
         console.log(props.buttonName);
-        console.log({ user })
         try {
           const { data } = await addUser({
-            variables: { user }
+            variables: { ...user }
           });
-          window.location.reload();
+          console.log({ user });
+          props.handleShowSuccess();
         }
-        catch (err) {
+        catch (error) {
           props.handleShowError();
-          console.log(err);
+          console.log(JSON.stringify(error, null, 2));
         }
-        history.push(`/mytodos`)
         break;
       default:
+        history.push(`/mytodos`)
 
     }
   }
