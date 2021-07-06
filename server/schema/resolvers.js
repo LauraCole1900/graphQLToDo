@@ -2,8 +2,8 @@ const { ToDo, User } = require("../models");
 
 const resolvers = {
   Query: {
-    user: async () => {
-      return User.findOne({});
+    GetOneUser: async () => {
+      return User.findOne({ email });
     },
     todos: async () => {
       return ToDo.find({})

@@ -7,16 +7,17 @@ import { ADD_USER, QUERY_ONE_USER, QUERY_USERS } from "../utils";
 import "./style.css";
 
 const SigninForm = (props) => {
-  const params = useParams();
-  const userId = params.id;
-  const [addUser, { addError, addData }] = useMutation(ADD_USER);
-  const { loading, error, data } = useQuery(userId ? QUERY_USERS : QUERY_ONE_USER,
-    { variables: { userId } });
-  const history = useHistory();
+  // const params = useParams();
+  // console.log({ params });
   const [user, setUser] = useState({
     email: "",
     password: ""
   });
+  const email = user.email;
+  const [addUser, { addError, addData }] = useMutation(ADD_USER);
+  const { loading, error, data } = useQuery(QUERY_ONE_USER,
+    { variables: { email } });
+  const history = useHistory();
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
@@ -27,6 +28,7 @@ const SigninForm = (props) => {
   // Handles button click
   const handleButtonClick = async (e) => {
     e.preventDefault();
+    props.setBtnName(props.buttonName);
     switch (props.buttonName) {
       case "Sign Up":
         try {
@@ -37,14 +39,14 @@ const SigninForm = (props) => {
           props.handleShowSuccess();
         }
         catch (error) {
-          console.log(JSON.stringify(error.message, null, 2));
+          console.log(JSON.stringify(error.message));
           props.setErrMessage(error.message);
           props.handleShowError();
         }
         break;
       default:
         try {
-          const authUser = data?.me || data?.user || {};
+          const authUser = data?.user || {};
           console.log({ authUser })
           if (Object.keys(authUser).length) {
             history.push(`/mytodos`)
