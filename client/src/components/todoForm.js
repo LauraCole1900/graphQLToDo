@@ -14,11 +14,16 @@ const ToDoForm = () => {
     setNewToDo({ ...newToDo, [name]: value })
   };
 
+  // Handles button click
+  const handleButtonClick = async (e) => {
+    e.preventDefault();
+  }
+
 
   return (
     <>
       <Row>
-        <Col sm={6}>
+        <Col sm={12}>
           <Form className="todoForm">
             <Form.Group>
               <Form.Label>Name: <span className="red">*</span></Form.Label>
@@ -27,7 +32,7 @@ const ToDoForm = () => {
 
             <Form.Group>
               <Form.Label>Description: <span className="red">*</span></Form.Label>
-              <Form.Control type="input" name="description" placeholder="Description of your to-do" value={newToDo.description} onChange={handleInputChange} />
+              <Form.Control as="textarea" rows={3} name="description" placeholder="Description of your to-do" value={newToDo.description} onChange={handleInputChange} />
             </Form.Group>
 
             <Form.Group>
@@ -35,6 +40,8 @@ const ToDoForm = () => {
               <Form.Control type="date" name="due" placeholder="3/15/2020" value={newToDo.due} onChange={handleInputChange} />
             </Form.Group>
           </Form>
+
+          <Button data-toggle="popover" title="Create New To-Do" className="button" onClick={(e) => handleButtonClick(e)}>Create New To-Do</Button>
         </Col>
       </Row>
     </>

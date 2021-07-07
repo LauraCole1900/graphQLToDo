@@ -37,11 +37,13 @@ const SigninForm = (props) => {
           });
           console.log({ user });
           props.handleShowSuccess();
+          setUser({ email: "", password: "" })
         }
         catch (error) {
           console.log(JSON.stringify(error.message));
           props.setErrMessage(error.message);
           props.handleShowError();
+          setUser({ email: "", password: "" })
         }
         break;
       default:
@@ -50,7 +52,7 @@ const SigninForm = (props) => {
           console.log({ authUser })
           if (Object.keys(authUser).length) {
             if (authUser.email === user.email && authUser.password === user.password) {
-            history.push(`/mytodos/${authUser._id}`)
+              history.push(`/mytodos/${authUser._id}`)
             } else if (authUser.email === user.email & authUser.password !== user.password) {
               props.setErrMessage("Incorrect password")
               props.handleShowError();
