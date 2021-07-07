@@ -48,7 +48,7 @@ npm run test
 
 ## Credits
 
-Thanks to Zac Stowell[https://github.com/the-medium-place] for the idea!
+Thanks to [Zac Stowell](https://github.com/the-medium-place) for the idea!
 
 ## Contributing
 
