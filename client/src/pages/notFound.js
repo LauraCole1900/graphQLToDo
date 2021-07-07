@@ -17,7 +17,7 @@ const NotFound = () => {
       <Row>
         <Col sm={3}>
           <Link to="/">
-            <Button data-toggle="popover" title="Sign-in Page" className="button">Sign-in Page</Button>
+            <Button data-toggle="popover" title="Login Page" className="button">Login Page</Button>
           </Link>
         </Col>
       </Row>
