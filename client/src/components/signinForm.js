@@ -10,11 +10,13 @@ const SigninForm = (props) => {
     email: "",
     password: ""
   });
+  const history = useHistory();
+
+  // GraphQL variables
   const email = user.email;
   const [addUser, { addError, addData }] = useMutation(ADD_USER);
   const { loading, error, data } = useQuery(QUERY_ONE_USER,
     { variables: { email } });
-  const history = useHistory();
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
