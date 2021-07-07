@@ -12,6 +12,7 @@
 
 body {
   background-color: var(--lightBlue);
+  padding-top: 10px;
 }
 
 .button {

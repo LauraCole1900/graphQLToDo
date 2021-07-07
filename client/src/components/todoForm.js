@@ -30,12 +30,14 @@ const ToDoForm = (props) => {
       console.log({ newToDo });
       props.handleShowSuccess();
       setNewToDo({ name: "", description: "", due: "" })
+      props.refetch();
     }
     catch (error) {
       console.log(JSON.stringify(error.message));
       props.setErrMessage(error.message);
       props.handleShowError();
       setNewToDo({ name: "", description: "", due: "" })
+      props.refetch();
     }
   }
 

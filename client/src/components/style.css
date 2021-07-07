@@ -14,6 +14,8 @@
   color: var(--darkBlue);
   background: var(--bronzeGradient);
   border-radius: 14px 14px 0 0;
+  padding: 5px 5px 0 5px;
+  margin: 0 -5px 0 -5px;
 }
 
 .right {
