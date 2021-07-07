@@ -27,16 +27,20 @@ export const QUERY_TODOS = gql`
 `;
 
 export const QUERY_ONE_USER = gql`
-  query GetOneUser($userId: ID!) {
-    user(_id: $userId) {
+  query GetOneUser($email: String) {
+    GetOneUser(email: $email) {
       _id
       email
-      todos {
-        _id
-        name
-        description
-        due
-      }
+      password
+    }
+  }
+`;
+
+export const QUERY_ME = gql`
+  query GetMe($email: String!) {
+    GetMe(email: $email) {
+      _id
+      email
     }
   }
 `;

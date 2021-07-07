@@ -46,10 +46,15 @@ const SigninForm = (props) => {
         break;
       default:
         try {
-          const authUser = data?.user || {};
+          const authUser = data.GetOneUser || {};
           console.log({ authUser })
           if (Object.keys(authUser).length) {
+            if (authUser.email === user.email && authUser.password === user.password) {
             history.push(`/mytodos`)
+            } else if (authUser.email === user.email & authUser.password !== user.password) {
+              props.setErrMessage("Incorrect password")
+              props.handleShowError();
+            }
           } else {
             throw Error;
           }
