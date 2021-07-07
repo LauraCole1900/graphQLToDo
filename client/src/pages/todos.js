@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Col, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
 import { ToDoCard, ToDoForm } from "../components";
 import { ErrorModal, SuccessModal } from "../components/modals";
@@ -42,6 +42,11 @@ const ToDoListPage = () => {
             </Col>
           </Row>}
 
+        <Row>
+          <Col sm={12} className="right">
+            <Button data-toggle="popover" title="Logout" name="Logout" className="button">Logout</Button>
+          </Col>
+        </Row>
         <Row>
           <Col sm={12} className="center">
             <h1>My To-Do List</h1>
