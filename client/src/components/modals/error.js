@@ -20,8 +20,8 @@ const ErrorModal = (props) => {
         <Modal.Body>
           <Row>
             <Col sm={12}>
-              {props.btnName === "Sign Up"
-                ? <>
+              {props.btnName === "Sign Up" &&
+                <>
                   <p>Your signup couldn't be processed at this time.</p>
                   {codeArr?.includes("E11000") &&
                     <p>The email you entered has already been registered.</p>}
@@ -29,11 +29,16 @@ const ErrorModal = (props) => {
                     <p>Please enter a valid email!</p>}
                   {props.errMessage === "User validation failed: password: Path `password` is required." &&
                     <p>Please enter a password!</p>}
-                </>
-                : <>
+                </>}
+              {props.btnName === "Login" &&
+                <>
                   <p>Your login information couldn't be located at this time. Are you sure you've signed up?</p>
                   {props.errMessage === "Incorrect password" &&
                     <p>The entered password does not match our records.</p>}
+                </>}
+              {props.btnName === "Create New To-Do" &&
+                <>
+                  <p>Your to-do couldn't be processed at this time.</p>
                 </>}
             </Col>
           </Row>

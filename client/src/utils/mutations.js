@@ -22,9 +22,10 @@ export const ADD_USER = gql`
 `;
 
 export const CREATE_TODO = gql`
-  mutation createToDo($name: String!, $description: String, $due: String) {
-    newToDo(name: $name, description: $description, due: $due) {
+  mutation createToDo($userId: String!, $name: String!, $description: String!, $due: String) {
+    createToDo(userId: $userId, name: $name, description: $description, due: $due) {
       _id
+      userId
       name
       description
       due

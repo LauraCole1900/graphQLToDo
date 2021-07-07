@@ -14,14 +14,13 @@ const typeDefs = gql`
     _id: ID
     email: String!
     password: String!
-    todos: [ToDo]
   }
 
   # GET one user
   # GET all ToDos?
   type Query {
     GetAllUsers: [User]!
-    GetMyToDos(_id: ID!): [User]
+    GetMyToDos(userId: ID!): [ToDo]
     GetOneUser(email: String): User
     GetToDos: [ToDo]
   }
@@ -29,7 +28,7 @@ const typeDefs = gql`
   type Mutation {
     addUser(email: String!, password: String!): User
     addToDo(userId: ID!, todoId: ID!): User
-    createToDo(name: String!, description: String!, due: String): ToDo
+    createToDo(userId: String!, name: String!, description: String!, due: String): ToDo
     editToDo(_id: String!): ToDo
     deleteToDo(_id: ID!): String
   }

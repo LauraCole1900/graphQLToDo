@@ -3,13 +3,17 @@ import { Container, Col, Row } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
 import { ToDoCard, ToDoForm } from "../components";
 import { ErrorModal, SuccessModal } from  "../components/modals";
-import { QUERY_USERS } from "../utils/queries";
+import { QUERY_MY_TODOS } from "../utils/queries";
 
 const ToDoListPage = () => {
   const [btnName, setBtnName] = useState();
   const [errMessage, setErrMessage] = useState();
   const [showError, setShowError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+
+  // Pull userId from URL
+  const urlArray = window.location.href.split("/")
+  const urlId = urlArray[urlArray.length - 1]
   
   const handleShowError = () => setShowError(true);
   const handleHideError = () => setShowError(false);
@@ -30,7 +34,7 @@ const ToDoListPage = () => {
         </Row>
         <Row>
           <Col sm={6}>
-            <ToDoForm setBtnName={setBtnName} handleShowSuccess={handleShowSuccess} handleShowError={handleShowError} setErrMessage={setErrMessage} />
+            <ToDoForm setBtnName={setBtnName} handleShowSuccess={handleShowSuccess} handleShowError={handleShowError} setErrMessage={setErrMessage} urlId={urlId} />
           </Col>
         </Row>
 

@@ -2,8 +2,8 @@ const { ToDo, User } = require("../models");
 
 const resolvers = {
   Query: {
-    GetMyToDos: async (_, _id) => {
-      return User.findOne(_id)
+    GetMyToDos: async (_, userId) => {
+      return ToDo.find(userId)
     },
     GetOneUser: async (_, email) => {
       return User.findOne(email);
@@ -20,8 +20,8 @@ const resolvers = {
     addToDo: async (_, { name, description, due }) => {
       return await ToDo.create({ name, description, due })
     },
-    createToDo: async (_, { name, description, due }) => {
-      return await ToDo.create({ name, description, due })
+    createToDo: async (_, { userId, name, description, due }) => {
+      return await ToDo.create({ userId, name, description, due })
     },
     deleteToDo: async (_, { name, description, due }) => {
       return await ToDo.deleteOne({ name, description, due })

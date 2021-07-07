@@ -25,7 +25,7 @@ const ToDoForm = (props) => {
     props.setBtnName(e.target.name);
     try {
       const { data } = await createToDo({
-        variables: { ...newToDo }
+        variables: { ...newToDo, userId: props.urlId }
       });
       console.log({ newToDo });
       props.handleShowSuccess();

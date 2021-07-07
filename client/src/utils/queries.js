@@ -11,15 +11,11 @@ query GetMe($email: String!) {
 
 export const QUERY_MY_TODOS = gql`
 query GetMyToDos($id: ID!) {
-  GetMyToDos(_id: $id) {
+  GetMyToDos(userId: $id) {
     _id
-    email
-    todos {
-      _id
-      name
-      description
-      due
-    }
+    name
+    description
+    due
   }
 }
 `;
