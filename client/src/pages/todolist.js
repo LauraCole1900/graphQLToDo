@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Col, Row } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
 import { ToDoCard, ToDoForm } from "../components";
-import { ErrorModal, SuccessModal } from  "../components/modals";
+import { ErrorModal, SuccessModal } from "../components/modals";
 import { QUERY_MY_TODOS } from "../utils/queries";
 
 const ToDoListPage = () => {
@@ -14,7 +14,14 @@ const ToDoListPage = () => {
   // Pull userId from URL
   const urlArray = window.location.href.split("/")
   const urlId = urlArray[urlArray.length - 1]
-  
+
+  // GraphQL variables
+  const { loading, error, data } = useQuery(QUERY_MY_TODOS, {
+    variables: { userId: urlId }
+  });
+  const todoArr = data.GetMyToDos;
+  console.log({ urlId }, { todoArr });
+
   const handleShowError = () => setShowError(true);
   const handleHideError = () => setShowError(false);
   const handleShowSuccess = () => setShowSuccess(true);
@@ -22,11 +29,19 @@ const ToDoListPage = () => {
 
   useEffect(() => {
 
-  }, [showError]);
+  }, [data, showError]);
 
   return (
     <>
       <Container>
+
+        {loading === true &&
+          <Row>
+            <Col sm={12}>
+              <h1>Loading....</h1>
+            </Col>
+          </Row>}
+
         <Row>
           <Col sm={12} className="center">
             <h1>My To-Do List</h1>
@@ -35,6 +50,10 @@ const ToDoListPage = () => {
         <Row>
           <Col sm={6}>
             <ToDoForm setBtnName={setBtnName} handleShowSuccess={handleShowSuccess} handleShowError={handleShowError} setErrMessage={setErrMessage} urlId={urlId} />
+          </Col>
+
+          <Col sm={6}>
+            <ToDoCard toDos={todoArr} />
           </Col>
         </Row>
 

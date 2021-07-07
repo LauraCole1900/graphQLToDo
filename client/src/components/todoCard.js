@@ -15,7 +15,7 @@ const ToDoCard = (props) => {
 
   return (
     <>
-    {props.toDos.map(todo => (
+    {props.toDos?.map(todo => (
       <Card className="todoCard" key={todo._id}>
         <Card.Header className="cardTitle">
           <Row>
