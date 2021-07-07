@@ -3,7 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { SigninForm } from "../components";
 import "./style.css";
 
-const LoginForm = (props) => {
+const Login = (props) => {
 
 
   return (
@@ -34,4 +34,4 @@ const LoginForm = (props) => {
   )
 }
 
-export default LoginForm;
+export default Login;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Col, Row } from "react-bootstrap";
-import { LoginForm } from "../components";
+import { Login } from "../components";
 import { ErrorModal, SuccessModal } from "../components/modals";
 import "./style.css";
 
@@ -34,7 +34,7 @@ const LandingPage = () => {
           </Col>
         </Row>
         <Row>
-          <LoginForm setBtnName={setBtnName} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} setErrMessage={setErrMessage} />
+          <Login setBtnName={setBtnName} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} setErrMessage={setErrMessage} />
         </Row>
 
         <ErrorModal show={showError === true} hide={() => handleHideError()} btnName={btnName} errMessage={errMessage} />
