@@ -8,7 +8,7 @@ const resolvers = {
     GetMe: async (req) => {
       return req.auth.user;
     },
-    todos: async () => {
+    ToDos: async () => {
       return ToDo.find({})
     }
   },

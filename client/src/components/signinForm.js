@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import { useParams } from "react-router";
 import { useHistory } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/client";
 import { Button, Col, Form, Row } from "react-bootstrap"
-import { ADD_USER, QUERY_ONE_USER, QUERY_USERS } from "../utils";
+import { ADD_USER, QUERY_ONE_USER } from "../utils";
 import "./style.css";
 
 const SigninForm = (props) => {
-  // const params = useParams();
-  // console.log({ params });
   const [user, setUser] = useState({
     email: "",
     password: ""

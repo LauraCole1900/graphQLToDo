@@ -9,3 +9,14 @@ export const ADD_USER = gql`
     }
   }
 `;
+
+export const ADD_TODO = gql`
+  mutation addToDo($name: String!, $description: String!, $due: String) {
+    addToDo(name: $name, description: $description, due: $due) {
+      _id
+      name
+      description
+      due
+    }
+  }
+`;

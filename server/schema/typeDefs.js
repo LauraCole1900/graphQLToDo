@@ -22,12 +22,12 @@ const typeDefs = gql`
     GetAllUsers: [User]!
     GetOneUser(email: String): User
     GetMe: User
-    todos: [ToDo]
+    ToDos: [ToDo]
   }
 
   type Mutation {
     addUser(email: String!, password: String!): User
-    addToDo(name: String!, description: String!): ToDo
+    addToDo(name: String!, description: String!, due: String): ToDo
     editToDo(_id: String!): ToDo
     deleteToDo(_id: ID!): String
   }
