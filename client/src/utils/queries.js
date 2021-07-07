@@ -10,8 +10,8 @@ query GetMe($email: String!) {
 `;
 
 export const QUERY_MY_TODOS = gql`
-query GetMyToDos($id: ID!) {
-  GetMyToDos(userId: $id) {
+query GetMyToDos($userId: String!) {
+  GetMyToDos(userId: $userId) {
     _id
     name
     description
