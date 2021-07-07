@@ -5,11 +5,11 @@ const resolvers = {
     GetOneUser: async (_, email) => {
       return User.findOne(email);
     },
-    GetMe: async (req) => {
-      return req.auth.user;
-    },
     ToDos: async () => {
       return ToDo.find({})
+    },
+    GetMyToDos: async (_, _id) => {
+      return User.findOne(_id)
     }
   },
 
@@ -25,6 +25,9 @@ const resolvers = {
     },
     deleteToDo: async (_, { name, description, due }) => {
       return await ToDo.deleteOne({ name, description, due })
+    },
+    newToDo: async (_, { name, description, due }) => {
+      return await ToDo.create({ name, description, due })
     }
   }
 }

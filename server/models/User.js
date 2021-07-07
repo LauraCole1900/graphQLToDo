@@ -12,10 +12,10 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  todos: {
+  todos: [{
     type: Schema.Types.ObjectId,
     ref: "ToDo"
-  }
+  }]
 })
 
 const User = model("User", userSchema)

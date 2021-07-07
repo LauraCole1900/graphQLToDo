@@ -44,3 +44,18 @@ export const QUERY_ME = gql`
     }
   }
 `;
+
+export const QUERY_MY_TODOS = gql`
+  query GetMyToDos($id: ID!) {
+    GetMyToDos(_id: $id) {
+      _id
+      email
+      todos {
+        _id
+        name
+        description
+        due
+      }
+    }
+  }
+`;

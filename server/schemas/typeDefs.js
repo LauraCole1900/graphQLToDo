@@ -3,6 +3,7 @@ const { gql } = require("apollo-server-express");
 const typeDefs = gql`
 
   type ToDo {
+    userId: ID!
     _id: ID!
     name: String!
     description: String!
@@ -21,15 +22,16 @@ const typeDefs = gql`
   type Query {
     GetAllUsers: [User]!
     GetOneUser(email: String): User
-    GetMe: User
     ToDos: [ToDo]
+    GetMyToDos(_id: ID!): [User]
   }
 
   type Mutation {
     addUser(email: String!, password: String!): User
-    addToDo(name: String!, description: String!, due: String): ToDo
+    addToDo(userId: ID!, todoId: ID!): User
     editToDo(_id: String!): ToDo
     deleteToDo(_id: ID!): String
+    newToDo(name: String!, description: String!, due: String): ToDo
   }
   `;
 

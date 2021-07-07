@@ -20,3 +20,13 @@ export const ADD_TODO = gql`
     }
   }
 `;
+
+export const NEW_TODO = gql`
+  mutation newToDo($name: String!, $description: String, $due: String)
+    newToDo(name: $name, description: $description, due: $due) {
+      _id
+      name
+      description
+      due
+    }
+`;

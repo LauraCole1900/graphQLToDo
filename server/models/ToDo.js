@@ -1,6 +1,10 @@
 const { Schema, model } = require('mongoose');
 
 const toDoSchema = new Schema({
+  userId: {
+    type: Schema.Types.ObjectId,
+    required: true
+  },
   name: {
     type: String,
     required: true
