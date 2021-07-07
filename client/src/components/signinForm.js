@@ -72,9 +72,14 @@ const SigninForm = (props) => {
 
   return (
     <>
-      <Row>
-        <Col sm={12}>
-          <Form className="signupForm">
+      <Form className="signupForm">
+        <Row>
+          <Col sm={12}>
+            <h1>{props.buttonName}:</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={12}>
             <Form.Group>
               <Form.Label>Email: <span className="red">*</span></Form.Label>
               <Form.Control type="email" name="email" placeholder="name@email.com" value={user.email} onChange={handleInputChange} />
@@ -84,12 +89,14 @@ const SigninForm = (props) => {
               <Form.Label>Password: <span className="red">*</span></Form.Label>
               <Form.Control type="password" name="password" placeholder="password" value={user.password} onChange={handleInputChange} />
             </Form.Group>
-          </Form>
 
-          <Button data-toggle="popover" title={props.buttonName} className="button" onClick={(e) => handleButtonClick(e)}>{props.buttonName}</Button>
+            <div className="right">
+              <Button data-toggle="popover" title={props.buttonName} className="button " onClick={(e) => handleButtonClick(e)}>{props.buttonName}</Button>
+            </div>
 
-        </Col>
-      </Row>
+          </Col>
+        </Row>
+      </Form>
     </>
   )
 

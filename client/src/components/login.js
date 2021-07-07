@@ -13,15 +13,6 @@ const Login = (props) => {
         <Row>
           <Col sm={2}></Col>
           <Col sm={4}>
-            <h1>Login:</h1>
-          </Col>
-          <Col sm={4}>
-            <h1>Sign up:</h1>
-          </Col>
-        </Row>
-        <Row>
-          <Col sm={2}></Col>
-          <Col sm={4}>
             <SigninForm setBtnName={props.setBtnName} buttonName="Login" handleShowError={props.handleShowError} handleShowSuccess={props.handleShowSuccess} setErrMessage={props.setErrMessage} />
           </Col>
           <Col sm={4}>

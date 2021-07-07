@@ -1,7 +1,30 @@
 :root {
   --red: #ff0000;
+  --darkBlue: #032c4b;
+  --bronze: #936418;
+  --lightBronze: #dfb97c;
+  --bronzeGradient: linear-gradient(to top, var(--lightBronze), var(--bronze));
 }
 
 .red {
   color: var(--red);
+}
+
+.cardHeader {
+  color: var(--darkBlue);
+  background: var(--bronzeGradient);
+  border-radius: 14px 14px 0 0;
+}
+
+.right {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 5px 5px 0;
+}
+
+.todoCard, .signupForm {
+  color: var(--darkBlue);
+  border: 2px solid var(--darkBlue);
+  border-radius: 15px;
+  padding: 0 5px 5px 5px;
 }

@@ -17,9 +17,9 @@ const ToDoCard = (props) => {
     <>
     {props.toDos?.map(todo => (
       <Card className="todoCard" key={todo._id}>
-        <Card.Header className="cardTitle">
+        <Card.Header className="cardHeader">
           <Row>
-            <Col sm={8}>
+            <Col sm={7}>
               <h2>{todo.name}</h2>
             </Col>
             <Col sm={2}>
@@ -33,8 +33,8 @@ const ToDoCard = (props) => {
         <Card.Body className="cardBody">
           <Row>
             <Col sm={12}>
-              <p>{todo.due}</p>
-              <p>{todo.description}</p>
+              <p>Due: {todo.due}</p>
+              <p>Description: {todo.description}</p>
             </Col>
           </Row>
         </Card.Body>

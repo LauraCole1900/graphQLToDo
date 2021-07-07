@@ -3,7 +3,7 @@ const { ToDo, User } = require("../models");
 const resolvers = {
   Query: {
     GetMyToDos: async (_, userId) => {
-      return ToDo.find(userId)
+      return await ToDo.find(userId)
     },
     GetOneUser: async (_, email) => {
       return User.findOne(email);

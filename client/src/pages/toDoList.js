@@ -10,6 +10,7 @@ const ToDoListPage = () => {
   const [errMessage, setErrMessage] = useState();
   const [showError, setShowError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [pageReady, setPageReady] = useState(false);
 
   // Pull userId from URL
   const urlArray = window.location.href.split("/")
@@ -19,20 +20,25 @@ const ToDoListPage = () => {
   const { loading, error, data } = useQuery(QUERY_MY_TODOS, {
     variables: { userId: urlId }
   });
-  const todoArr = data.GetMyToDos;
+  const todoArr = data?.GetMyToDos;
   console.log({ urlId }, { todoArr });
+  if (data) {
+    return setPageReady(true);
+  }
 
   const handleShowError = () => setShowError(true);
   const handleHideError = () => setShowError(false);
   const handleShowSuccess = () => setShowSuccess(true);
   const handleHideSuccess = () => setShowSuccess(false);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-  }, [data, showError]);
+  // }, [showError]);
+
 
   return (
     <>
+    {pageReady === true &&
       <Container>
 
         {loading === true &&
@@ -66,7 +72,7 @@ const ToDoListPage = () => {
 
         <SuccessModal show={showSuccess === true} hide={() => handleHideSuccess()} buttonName="Create New To-Do" setBtnName={setBtnName} />
 
-      </Container>
+      </Container>}
     </>
   )
 }
