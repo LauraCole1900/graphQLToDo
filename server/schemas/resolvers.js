@@ -2,15 +2,15 @@ const { ToDo, User } = require("../models");
 
 const resolvers = {
   Query: {
+    GetMyToDos: async (_, _id) => {
+      return User.findOne(_id)
+    },
     GetOneUser: async (_, email) => {
       return User.findOne(email);
     },
-    ToDos: async () => {
+    GetToDos: async () => {
       return ToDo.find({})
     },
-    GetMyToDos: async (_, _id) => {
-      return User.findOne(_id)
-    }
   },
 
   Mutation: {
@@ -20,15 +20,15 @@ const resolvers = {
     addToDo: async (_, { name, description, due }) => {
       return await ToDo.create({ name, description, due })
     },
-    editToDo: async (_, { name, description, due }) => {
-      return await ToDo.updateOne({ name, description, due })
+    createToDo: async (_, { name, description, due }) => {
+      return await ToDo.create({ name, description, due })
     },
     deleteToDo: async (_, { name, description, due }) => {
       return await ToDo.deleteOne({ name, description, due })
     },
-    newToDo: async (_, { name, description, due }) => {
-      return await ToDo.create({ name, description, due })
-    }
+    editToDo: async (_, { name, description, due }) => {
+      return await ToDo.updateOne({ name, description, due })
+    },
   }
 }
 

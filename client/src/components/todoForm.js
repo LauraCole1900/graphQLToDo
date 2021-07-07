@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client"
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { NEW_TODO } from "../utils";
+import { CREATE_TODO } from "../utils";
 
 const ToDoForm = (props) => {
   const [newToDo, setNewToDo] = useState({
@@ -11,7 +11,7 @@ const ToDoForm = (props) => {
   });
 
   // GraphQL variables
-  const [createToDo, { addError, addData }] = useMutation(NEW_TODO);
+  const [createToDo, { addError, addData }] = useMutation(CREATE_TODO);
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
