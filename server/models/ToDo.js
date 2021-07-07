@@ -10,7 +10,7 @@ const toDoSchema = new Schema({
     required: true
   },
   due: {
-    type: Date
+    type: String
   },
   created_At: {
     type: Date,

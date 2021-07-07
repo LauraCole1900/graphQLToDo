@@ -3,13 +3,16 @@ import { useMutation, useQuery } from "@apollo/client"
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { ADD_TODO } from "../utils";
 
-const ToDoForm = () => {
+const ToDoForm = (props) => {
   const [newToDo, setNewToDo] = useState({
     name: "",
     description: "",
     due: ""
   });
-  
+
+  // GraphQL variables
+  const [addToDo, { addError, addData }] = useMutation(ADD_TODO);
+
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -19,6 +22,21 @@ const ToDoForm = () => {
   // Handles button click
   const handleButtonClick = async (e) => {
     e.preventDefault();
+    props.setBtnName(e.target.name);
+    try {
+      const { data } = await addToDo({
+        variables: { ...newToDo }
+      });
+      console.log({ newToDo });
+      props.handleShowSuccess();
+      setNewToDo({ name: "", description: "", due: "" })
+    }
+    catch (error) {
+      console.log(JSON.stringify(error.message));
+      props.setErrMessage(error.message);
+      props.handleShowError();
+      setNewToDo({ name: "", description: "", due: "" })
+    }
   }
 
 
@@ -43,7 +61,7 @@ const ToDoForm = () => {
             </Form.Group>
           </Form>
 
-          <Button data-toggle="popover" title="Create New To-Do" className="button" onClick={(e) => handleButtonClick(e)}>Create New To-Do</Button>
+          <Button data-toggle="popover" title="Create New To-Do" name="Create New To-Do" className="button" onClick={(e) => handleButtonClick(e)}>Create New To-Do</Button>
         </Col>
       </Row>
     </>
