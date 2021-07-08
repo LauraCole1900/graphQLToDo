@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
@@ -12,7 +12,6 @@ const ToDoListPage = () => {
   const [errMessage, setErrMessage] = useState();
   const [showError, setShowError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
-  const [pageReady, setPageReady] = useState(false);
 
   // Pull userId from URL
   const urlArray = window.location.href.split("/")
@@ -32,14 +31,11 @@ const ToDoListPage = () => {
   const { loading, error, data, refetch } = useQuery(QUERY_MY_TODOS, {
     variables: { userId: urlId }
   });
+  if (loading) return null;
   const todoArr = data?.GetMyToDos;
   const arrToSort = [...todoArr];
   const sortedToDos = arrToSort.sort((a, b) => (a.due > b.due) ? 1 : -1)
   console.log({ urlId }, { todoArr }, { sortedToDos });
-
-  useEffect(() => {
-
-  }, [showSuccess]);
 
 
   return (
