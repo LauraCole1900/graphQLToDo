@@ -1,19 +1,25 @@
 import React, { useState } from "react";
+import { useMutation, useQuery } from "@apollo/client";
 import { Button, Card, Col, Row } from "react-bootstrap";
-import { DELETE_TODO, QUERY_ONE_TODO } from "../utils";
+import { DELETE_TODO, EDIT_TODO, QUERY_ONE_TODO } from "../utils";
 
 const ToDoCard = (props) => {
+  const [deleteToDo, { deleteError, deleteData }] = useMutation(DELETE_TODO);
 
 
   const handleEdit = (e) => {
     e.preventDefault();
-    props.setBtnName(e.target.name);
+    const { dataset, name } = e.target
+    const toDoId = dataset.todoid
+    props.setBtnName(name);
   }
 
-  const handleDelete = (e) => {
+  const handleDelete = async (e) => {
     e.preventDefault();
-    props.setBtnName(e.target.name);
-
+    const { dataset, name } = e.target;
+    const toDoId = dataset.todoid
+    props.setBtnName(name);
+    
   }
 
 
