@@ -25,7 +25,7 @@ const SuccessModal = (props) => {
               </Row>
               <Row>
                 <Col sm={12}>
-                  <SigninForm setBtnName={props.setBtnName} buttonName={props.buttonName} handleClick={props.handleClick} />
+                  <SigninForm setBtnName={props.setBtnName} buttonName={props.buttonName} handleClick={props.handleClick} setErrMessage={props.setErrMessage} handleShowError={props.handleShowError} />
                 </Col>
               </Row>
             </>}

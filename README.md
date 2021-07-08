@@ -25,7 +25,10 @@ This application uses a MERN stack to create a to-do list.
 ## Screenshots
 
 Landing page:
-![Landing page](assets/#.png)
+![Landing page](assets/login-page-screencap.png)
+
+Login after signing up:
+![Login modal](assets/login-modal-screencap.png)
 
 To-Dos page:
 ![To-Dos page](assets/#.png)

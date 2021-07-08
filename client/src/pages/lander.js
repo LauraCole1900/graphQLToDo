@@ -39,7 +39,7 @@ const LandingPage = () => {
 
         <ErrorModal show={showError === true} hide={() => handleHideError()} btnName={btnName} errMessage={errMessage} />
 
-        <SuccessModal show={showSuccess === true} hide={() => handleHideSuccess()} buttonName="Login" setBtnName={setBtnName} />
+        <SuccessModal show={showSuccess === true} hide={() => handleHideSuccess()} buttonName="Login" setBtnName={setBtnName} setErrMessage={setErrMessage} handleShowError={handleShowError} />
 
       </Container>
     </>

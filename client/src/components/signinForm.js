@@ -15,7 +15,7 @@ const SigninForm = (props) => {
   // GraphQL variables
   const email = user.email;
   const [addUser, { addError, addData }] = useMutation(ADD_USER);
-  const { loading, error, data } = useQuery(QUERY_ONE_USER,
+  const { loading, error, data, refetch } = useQuery(QUERY_ONE_USER,
     { variables: { email } });
 
   // Handles input changes to form fields
@@ -45,8 +45,9 @@ const SigninForm = (props) => {
           setUser({ email: "", password: "" })
         }
         break;
-      default:
-        try {
+        default:
+          try {
+          refetch();
           const authUser = data.GetOneUser || {};
           console.log({ authUser })
           if (Object.keys(authUser).length) {
