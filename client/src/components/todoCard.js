@@ -3,7 +3,7 @@ import { Button, Card, Col, Row } from "react-bootstrap";
 import { QUERY_ONE_TODO } from "../utils";
 
 const ToDoCard = (props) => {
-  // Needs "edit" and "delete" buttons
+
 
   const handleEdit = (e) => {
     e.preventDefault();
@@ -13,7 +13,7 @@ const ToDoCard = (props) => {
   const handleDelete = (e) => {
     e.preventDefault();
     props.setBtnName(e.target.name);
-    
+
   }
 
 
@@ -37,8 +37,8 @@ const ToDoCard = (props) => {
             </Row>
             <Row>
               <Col sm={12} className="cardBtns">
-                <Button data-toggle="popover" title="Edit" name="Edit" className="button" onClick={handleEdit}>Edit</Button>
-                <Button data-toggle="popover" title="Delete" name="Delete" className="button" onClick={handleDelete}>Delete</Button>
+                <Button data-toggle="popover" title="Edit" name="Edit" className="button" data-todoid={todo._id} onClick={handleEdit}>Edit</Button>
+                <Button data-toggle="popover" title="Delete" name="Delete" className="button" data-todoid={todo._id} onClick={handleDelete}>Delete</Button>
               </Col>
             </Row>
           </Card.Body>
