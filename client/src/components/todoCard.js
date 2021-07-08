@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
-import { QUERY_ONE_TODO } from "../utils";
+import { DELETE_TODO, QUERY_ONE_TODO } from "../utils";
 
 const ToDoCard = (props) => {
 
