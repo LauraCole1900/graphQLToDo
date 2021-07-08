@@ -21,6 +21,7 @@ body {
   border: 2px solid var(--bronze);
   border-radius: 7px;
   font-weight: 600;
+  min-width: 5em;
 }
 .button:hover, button:focus, button:active {
   color: var(--darkBlue);
