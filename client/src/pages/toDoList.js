@@ -33,7 +33,9 @@ const ToDoListPage = () => {
     variables: { userId: urlId }
   });
   const todoArr = data?.GetMyToDos;
-  console.log({ urlId }, { todoArr });
+  const arrToSort = [...todoArr];
+  const sortedToDos = arrToSort.sort((a, b) => (a.due > b.due) ? 1 : -1)
+  console.log({ urlId }, { todoArr }, { sortedToDos });
 
   useEffect(() => {
 
@@ -66,7 +68,7 @@ const ToDoListPage = () => {
           </Col>
 
           <Col sm={6}>
-            <ToDoCard toDos={todoArr} />
+            <ToDoCard toDos={sortedToDos} />
           </Col>
         </Row>
 
