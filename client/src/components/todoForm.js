@@ -19,8 +19,8 @@ const ToDoForm = (props) => {
     setNewToDo({ ...newToDo, [name]: value })
   };
 
-  // Handles button click
-  const handleButtonClick = async (e) => {
+  // Handles for submit
+  const handleSubmit = async (e) => {
     e.preventDefault();
     props.setBtnName(e.target.name);
     try {
@@ -39,6 +39,12 @@ const ToDoForm = (props) => {
       setNewToDo({ name: "", description: "", due: "" })
       props.refetch();
     }
+  }
+
+  // Handles form update
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    props.setBtnName(e.target.name)
   }
 
 
@@ -63,7 +69,9 @@ const ToDoForm = (props) => {
             </Form.Group>
           </Form>
 
-          <Button data-toggle="popover" title="Create New To-Do" name="Create New To-Do" className="button" onClick={(e) => handleButtonClick(e)}>Create New To-Do</Button>
+          {props.btnName === "Edit"
+            ? <Button data-toggle="popover" title="Update To-Do" name="Update" className="button" onClick={(e) => handleUpdate(e)}>Update To-Do</Button>
+            : <Button data-toggle="popover" title="Create New To-Do" name="Create" className="button" onClick={(e) => handleSubmit(e)}>Create New To-Do</Button>}
         </Col>
       </Row>
     </>

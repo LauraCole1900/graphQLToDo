@@ -29,7 +29,7 @@ const SuccessModal = (props) => {
                 </Col>
               </Row>
             </>}
-          {props.buttonName === "Create New To-Do" &&
+          {props.btnName === "Create" &&
             <>
               <Row>
                 <Col sm={12}>
@@ -37,11 +37,19 @@ const SuccessModal = (props) => {
                 </Col>
               </Row>
             </>}
+          {props.btnName === "Edit" &&
+            <>
+              <Row>
+                <Col sm={12}>
+                  <p>You've edited your to-do!</p>
+                </Col>
+              </Row>
+            </>}
         </Modal.Body>
-        {props.buttonName === "Create New To-Do" &&
-          <Modal.Footer>
-            <Button data-toggle="popover" title="Close" className="button" onClick={props.hide}>Close</Button>
-          </Modal.Footer>}
+        <Modal.Footer>
+          {(props.btnName === "Create" || props.buttonName === "Edit") &&
+            <Button data-toggle="popover" title="Close" className="button" onClick={props.hide}>Close</Button>}
+        </Modal.Footer>
       </Modal>
     </>
   )

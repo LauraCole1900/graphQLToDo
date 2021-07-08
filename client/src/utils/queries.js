@@ -20,6 +20,16 @@ query GetMyToDos($userId: String!) {
 }
 `;
 
+export const QUERY_ONE_TODO = gql `
+query GetOneToDo($id: ID!) {
+  GetOneToDo(_id: $id) {
+    name
+    description
+    due
+  }
+}
+`;
+
 export const QUERY_ONE_USER = gql`
 query GetOneUser($email: String) {
   GetOneUser(email: $email) {

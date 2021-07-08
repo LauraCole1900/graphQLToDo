@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
+import { QUERY_ONE_TODO } from "../utils";
 
 const ToDoCard = (props) => {
   // Needs "edit" and "delete" buttons
 
   const handleEdit = (e) => {
     e.preventDefault();
-    props.setBtnName(e.target.name)
+    props.setBtnName(e.target.name);
   }
 
   const handleDelete = (e) => {
-
+    e.preventDefault();
+    props.setBtnName(e.target.name);
+    
   }
 
 

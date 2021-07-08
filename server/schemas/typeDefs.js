@@ -21,6 +21,7 @@ const typeDefs = gql`
   type Query {
     GetAllUsers: [User]!
     GetMyToDos(userId: String!): [ToDo]
+    GetOneToDo(_id: ID!): ToDo
     GetOneUser(email: String): User
     GetToDos: [ToDo]
   }

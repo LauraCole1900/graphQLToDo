@@ -36,7 +36,7 @@ const ErrorModal = (props) => {
                   {props.errMessage === "Incorrect password" &&
                     <p>The entered password does not match our records.</p>}
                 </>}
-              {props.btnName === "Create New To-Do" &&
+              {props.btnName === "Create" &&
                 <>
                   <p>Your to-do couldn't be processed at this time.</p>
                 </>}

@@ -5,6 +5,9 @@ const resolvers = {
     GetMyToDos: async (_, userId) => {
       return await ToDo.find(userId)
     },
+    GetOneToDo: async (_, id) => {
+      return await ToDo.findOne(id)
+    },
     GetOneUser: async (_, email) => {
       return User.findOne(email);
     },
