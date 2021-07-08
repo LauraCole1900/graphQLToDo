@@ -64,7 +64,7 @@ const ToDoListPage = () => {
           </Col>
 
           <Col sm={6}>
-            <ToDoCard toDos={sortedToDos} />
+            <ToDoCard toDos={sortedToDos} refetch={() => refetch()} />
           </Col>
         </Row>
 

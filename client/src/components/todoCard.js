@@ -5,7 +5,8 @@ const ToDoCard = (props) => {
   // Needs "edit" and "delete" buttons
 
   const handleEdit = (e) => {
-
+    e.preventDefault();
+    props.setBtnName(e.target.name)
   }
 
   const handleDelete = (e) => {
@@ -33,8 +34,8 @@ const ToDoCard = (props) => {
             </Row>
             <Row>
               <Col sm={12} className="cardBtns">
-                <Button data-toggle="popover" title="Edit" className="button" onClick={handleEdit}>Edit</Button>
-                <Button data-toggle="popover" title="Delete" className="button" onClick={handleDelete}>Delete</Button>
+                <Button data-toggle="popover" title="Edit" name="Edit" className="button" onClick={handleEdit}>Edit</Button>
+                <Button data-toggle="popover" title="Delete" name="Delete" className="button" onClick={handleDelete}>Delete</Button>
               </Col>
             </Row>
           </Card.Body>

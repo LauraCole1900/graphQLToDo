@@ -20,7 +20,7 @@ This application uses a MERN stack to create a to-do list.
 
 ## Links
 
-[Deployed application on Heroku](https://#) NOT DEPLOYED YET
+[Deployed application on Heroku](https://my-gql-todos.herokuapp.com/)
 
 ## Screenshots
 
