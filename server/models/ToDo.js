@@ -16,6 +16,10 @@ const toDoSchema = new Schema({
   due: {
     type: String
   },
+  done: {
+    type: Boolean,
+    required: true
+  },
   created_At: {
     type: Date,
     default: Date.now,

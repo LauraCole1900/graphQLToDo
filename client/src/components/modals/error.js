@@ -40,6 +40,10 @@ const ErrorModal = (props) => {
                 <>
                   <p>Your to-do couldn't be processed at this time.</p>
                 </>}
+                {(props.btnName === "Done" || props.btnName === "Edit") &&
+                <>
+                  <p>Your to-do couldn't be updated at this time.</p>
+                </>}
             </Col>
           </Row>
         </Modal.Body>

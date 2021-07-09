@@ -29,7 +29,7 @@ const ToDoListPage = () => {
   }
 
   useEffect(() => {
-
+    
   }, [showSuccess]);
 
   // GraphQL variables
@@ -40,7 +40,7 @@ const ToDoListPage = () => {
   const todoArr = data?.GetMyToDos;
   const arrToSort = [...todoArr];
   const sortedToDos = arrToSort.sort((a, b) => (a.due > b.due) ? 1 : -1)
-  console.log({ urlId }, { todoArr }, { sortedToDos });
+  console.log({ urlId }, { todoArr }, { sortedToDos }, { btnName });
 
 
   return (

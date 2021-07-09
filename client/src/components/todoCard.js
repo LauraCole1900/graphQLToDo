@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/client";
-import { Button, Card, Col, Row } from "react-bootstrap";
-import { DELETE_TODO, QUERY_ONE_TODO } from "../utils";
+import { Button, Card, Col, InputGroup, Row } from "react-bootstrap";
+import { DELETE_TODO, EDIT_TODO, QUERY_ONE_TODO } from "../utils";
 
 const ToDoCard = (props) => {
   const [deleteToDo, { loading: deleting, deleteError, deleteData }] = useMutation(DELETE_TODO);
+  const [editToDo, { editError, editData }] = useMutation(DELETE_TODO);
 
   const [GetOneToDo, { loading, data, error }] = useLazyQuery(QUERY_ONE_TODO)
   if (loading) return null;
@@ -14,6 +15,34 @@ const ToDoCard = (props) => {
   }
   props.setToDo(data?.GetOneToDo);
   if (error) console.log(JSON.stringify(error));
+
+  const handleCheckbox = async (e) => {
+    const { dataset, value } = e.target;
+    console.log("checkbox", value, dataset.todoid);
+    const toDoId = dataset.todoid;
+    props.setBtnName("Done")
+    // Define data to be changed based on existing checkbox value
+    switch (value) {
+      case true:
+        props.setToDo({ ...props.toDo, done: false });
+        break;
+      default:
+        props.setToDo({ ...props.toDo, done: true });
+    }
+    try {
+      await editToDo({
+        variables: { id: toDoId, name: props.toDo.name, description: props.toDo.description, due: props.toDo.due, done: props.toDo.done }
+      })
+      props.handleShowSuccess();
+      props.refetch();
+    }
+    catch (error) {
+      console.log(JSON.stringify(error));
+      props.setErrMessage(error.message);
+      props.handleShowError();
+      props.refetch();
+    }
+  }
 
   const handleDelete = async (e) => {
     e.preventDefault();
@@ -43,7 +72,12 @@ const ToDoCard = (props) => {
         <Card className="todoCard" key={todo._id}>
           <Card.Header className="cardHeader">
             <Row>
-              <Col sm={12}>
+              <Col sm={1} className="check">
+                <InputGroup className="check">
+                  <InputGroup.Checkbox aria-label="Done?" name="done" data-todoid={todo._id} className="checkBox" defaultChecked={todo.done === true} onChange={handleCheckbox} />
+                </InputGroup>
+              </Col>
+              <Col sm={11}>
                 <h2 className="cardTitle">{todo.name}</h2>
               </Col>
             </Row>

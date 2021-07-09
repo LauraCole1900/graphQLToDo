@@ -27,6 +27,14 @@
   margin-top: 0;
 }
 
+.checkBox {
+  color: var(--darkBlue);
+}
+.checkBox:active, .checkBox:focus {
+  color: var(--bronze);
+  background-color: var(--darkBlue);
+}
+
 .right {
   display: flex;
   justify-content: flex-end;

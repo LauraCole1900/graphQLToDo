@@ -7,7 +7,8 @@ const ToDoForm = (props) => {
   const [toDo, setToDo] = useState(props.toDo || {
     name: "",
     description: "",
-    due: ""
+    due: "",
+    done: false
   });
 
   // GraphQL variables
@@ -29,8 +30,8 @@ const ToDoForm = (props) => {
     e.preventDefault();
     props.setBtnName(e.target.name);
     try {
-      const { addData } = await createToDo({
-        variables: { ...toDo, userId: props.urlId }
+      const { data } = await createToDo({
+        variables: { ...toDo, userId: props.urlId, done: false }
       });
       console.log({ toDo });
       props.handleShowSuccess();
@@ -38,7 +39,7 @@ const ToDoForm = (props) => {
       props.refetch();
     }
     catch (error) {
-      console.log(JSON.stringify(error.message));
+      console.log(JSON.stringify(error));
       props.setErrMessage(error.message);
       props.handleShowError();
       setToDo({ name: "", description: "", due: "" })

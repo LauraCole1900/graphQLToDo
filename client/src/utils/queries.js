@@ -16,6 +16,7 @@ query GetMyToDos($userId: String!) {
     name
     description
     due
+    done
   }
 }
 `;
@@ -27,6 +28,7 @@ query GetOneToDo($id: String!) {
     name
     description
     due
+    done
   }
 }
 `;
@@ -48,6 +50,7 @@ query allTodos {
     name
     description
     due
+    done
   }
 }
 `;
@@ -62,6 +65,7 @@ export const QUERY_USERS = gql`
         name
         description
         due
+        done
       }
     }
   }

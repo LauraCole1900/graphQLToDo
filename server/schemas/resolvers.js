@@ -20,14 +20,14 @@ const resolvers = {
     addUser: async (_, { email, password }) => {
       return await User.create({ email, password })
     },
-    createToDo: async (_, { userId, name, description, due }) => {
-      return await ToDo.create({ userId, name, description, due })
+    createToDo: async (_, { userId, name, description, due, done }) => {
+      return await ToDo.create({ userId, name, description, due, done })
     },
     deleteToDo: async (_, _id) => {
       return await ToDo.findOneAndDelete(_id)
     },
-    editToDo: async (_, { _id, name, description, due }) => {
-      return await ToDo.findOneAndUpdate({ _id, name, description, due })
+    editToDo: async (_, { _id, name, description, due, done }) => {
+      return await ToDo.findOneAndUpdate({ _id, name, description, due, done })
     },
   }
 }

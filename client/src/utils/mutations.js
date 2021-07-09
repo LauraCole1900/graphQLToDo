@@ -11,13 +11,14 @@ mutation addUser($email: String!, $password: String!) {
 `;
 
 export const CREATE_TODO = gql`
-mutation createToDo($userId: String!, $name: String!, $description: String!, $due: String) {
-  createToDo(userId: $userId, name: $name, description: $description, due: $due) {
+mutation createToDo($userId: String!, $name: String!, $description: String!, $due: String, $done: Boolean!) {
+  createToDo(userId: $userId, name: $name, description: $description, due: $due, done: $done) {
     _id
     userId
     name
     description
     due
+    done
   }
 }
 `;
@@ -29,17 +30,19 @@ export const DELETE_TODO = gql`
       name
       description
       due
+      done
     }
   }
 `;
 
 export const EDIT_TODO = gql`
-  mutation editToDo($id: String!) {
-    editToDo(_id: $id) {
+  mutation editToDo($id: String!, $name: String! $description: String! $due: String, $done: Boolean!) {
+    editToDo(_id: $id, name: $name, description: $description, due: $due, done: $done) {
       _id
       name
       description
       due
+      done
     }
   }
 `;
