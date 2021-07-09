@@ -38,4 +38,5 @@
   border: 2px solid var(--darkBlue);
   border-radius: 15px;
   padding: 0 5px 5px 5px;
+  margin-bottom: 0.5em;
 }
