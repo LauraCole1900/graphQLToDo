@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { Button, Card, Col, Row } from "react-bootstrap";
-import { DELETE_TODO, EDIT_TODO, QUERY_ONE_TODO } from "../utils";
+import { DELETE_TODO, QUERY_ONE_TODO } from "../utils";
 
 const ToDoCard = (props) => {
   const [deleteToDo, { loading: deleting, deleteError, deleteData }] = useMutation(DELETE_TODO);
 
   const [GetOneToDo, { loading, data, error }] = useLazyQuery(QUERY_ONE_TODO)
-  // props.setBtnName(name);
   if (loading) return null;
-  if (data) console.log(data);
+  if (data) {
+    console.log({ data });
+    props.setBtnName("Edit");
+  }
   props.setToDo(data?.GetOneToDo);
   if (error) console.log(JSON.stringify(error));
-  // }
 
   const handleDelete = async (e) => {
     e.preventDefault();

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useMutation, useQuery } from "@apollo/client"
+import { useMutation } from "@apollo/client"
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { CREATE_TODO, EDIT_TODO } from "../utils";
 
 const ToDoForm = (props) => {
-  const [newToDo, setNewToDo] = useState(props.toDo || {
+  const [toDo, setToDo] = useState(props.toDo || {
     name: "",
     description: "",
     due: ""
@@ -14,10 +14,14 @@ const ToDoForm = (props) => {
   const [createToDo, { addError, addData }] = useMutation(CREATE_TODO);
   const [editToDo, { editError, editData }] = useMutation(EDIT_TODO);
 
+  if (props.btnName === "Edit") {
+    console.log("props.toDo", props.toDo)
+  }
+
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewToDo({ ...newToDo, [name]: value })
+    setToDo({ ...toDo, [name]: value })
   };
 
   // Handles for submit
@@ -26,18 +30,18 @@ const ToDoForm = (props) => {
     props.setBtnName(e.target.name);
     try {
       const { addData } = await createToDo({
-        variables: { ...newToDo, userId: props.urlId }
+        variables: { ...toDo, userId: props.urlId }
       });
-      console.log({ newToDo });
+      console.log({ toDo });
       props.handleShowSuccess();
-      setNewToDo({ name: "", description: "", due: "" })
+      setToDo({ name: "", description: "", due: "" })
       props.refetch();
     }
     catch (error) {
       console.log(JSON.stringify(error.message));
       props.setErrMessage(error.message);
       props.handleShowError();
-      setNewToDo({ name: "", description: "", due: "" })
+      setToDo({ name: "", description: "", due: "" })
       props.refetch();
     }
   }
@@ -49,18 +53,18 @@ const ToDoForm = (props) => {
     props.setBtnName(e.target.name)
     try {
       const { editData } = await editToDo({
-        variables: { ...newToDo, userId: props.urlId }
+        variables: { ...toDo, _id: props.toDo._id }
       });
-      console.log({ newToDo });
+      console.log({ toDo });
       props.handleShowSuccess();
-      setNewToDo({ name: "", description: "", due: "" })
+      setToDo({ name: "", description: "", due: "" })
       props.refetch();
     }
     catch (error) {
       console.log(JSON.stringify(error.message));
       props.setErrMessage(error.message);
       props.handleShowError();
-      setNewToDo({ name: "", description: "", due: "" })
+      setToDo({ name: "", description: "", due: "" })
       props.refetch();
     }
   }
@@ -73,17 +77,17 @@ const ToDoForm = (props) => {
           <Form className="todoForm">
             <Form.Group>
               <Form.Label>Name: <span className="red">*</span></Form.Label>
-              <Form.Control type="input" name="name" placeholder="Name of your to-do" value={newToDo.name} onChange={handleInputChange} />
+              <Form.Control type="input" name="name" placeholder="Name of your to-do" value={toDo.name} onChange={handleInputChange} />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Description: <span className="red">*</span></Form.Label>
-              <Form.Control as="textarea" rows={3} name="description" placeholder="Description of your to-do" value={newToDo.description} onChange={handleInputChange} />
+              <Form.Control as="textarea" rows={3} name="description" placeholder="Description of your to-do" value={toDo.description} onChange={handleInputChange} />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Due:</Form.Label>
-              <Form.Control type="date" name="due" placeholder="3/15/2020" value={newToDo.due} onChange={handleInputChange} />
+              <Form.Control type="date" name="due" placeholder="3/15/2020" value={toDo.due} onChange={handleInputChange} />
             </Form.Group>
           </Form>
 
