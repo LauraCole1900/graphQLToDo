@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
@@ -27,6 +27,10 @@ const ToDoListPage = () => {
   const returnToSignin = () => {
     history.push("/");
   }
+
+  useEffect(() => {
+
+  }, [showSuccess]);
 
   // GraphQL variables
   const { loading, error, data, refetch } = useQuery(QUERY_MY_TODOS, {
