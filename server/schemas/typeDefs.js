@@ -21,7 +21,7 @@ const typeDefs = gql`
   type Query {
     GetAllUsers: [User]!
     GetMyToDos(userId: String!): [ToDo]
-    GetOneToDo(_id: ID!): ToDo
+    GetOneToDo(_id: String!): ToDo
     GetOneUser(email: String): User
     GetToDos: [ToDo]
   }
@@ -30,7 +30,7 @@ const typeDefs = gql`
     addUser(email: String!, password: String!): User
     createToDo(userId: String!, name: String!, description: String!, due: String): ToDo
     deleteToDo(_id: String!): ToDo
-    editToDo(id: String!, name: String!, description: String! due: String): ToDo
+    editToDo(_id: String!): ToDo
   }
   `;
 

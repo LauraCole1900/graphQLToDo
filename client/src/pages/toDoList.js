@@ -30,7 +30,7 @@ const ToDoListPage = () => {
 
   useEffect(() => {
 
-  }, [showSuccess]);
+  }, [showSuccess, toDo]);
 
   // GraphQL variables
   const { loading, error, data, refetch } = useQuery(QUERY_MY_TODOS, {

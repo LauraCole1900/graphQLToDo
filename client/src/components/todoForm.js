@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client"
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { CREATE_TODO } from "../utils";
+import { CREATE_TODO, EDIT_TODO } from "../utils";
 
 const ToDoForm = (props) => {
-  const [newToDo, setNewToDo] = useState({
+  const [newToDo, setNewToDo] = useState(props.toDo || {
     name: "",
     description: "",
     due: ""
@@ -12,6 +12,7 @@ const ToDoForm = (props) => {
 
   // GraphQL variables
   const [createToDo, { addError, addData }] = useMutation(CREATE_TODO);
+  const [editToDo, { editError, editData }] = useMutation(EDIT_TODO);
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
@@ -24,7 +25,7 @@ const ToDoForm = (props) => {
     e.preventDefault();
     props.setBtnName(e.target.name);
     try {
-      const { data } = await createToDo({
+      const { addData } = await createToDo({
         variables: { ...newToDo, userId: props.urlId }
       });
       console.log({ newToDo });
@@ -42,9 +43,26 @@ const ToDoForm = (props) => {
   }
 
   // Handles form update
+  // Need todo._id--from where??
   const handleUpdate = async (e) => {
     e.preventDefault();
     props.setBtnName(e.target.name)
+    try {
+      const { editData } = await editToDo({
+        variables: { ...newToDo, userId: props.urlId }
+      });
+      console.log({ newToDo });
+      props.handleShowSuccess();
+      setNewToDo({ name: "", description: "", due: "" })
+      props.refetch();
+    }
+    catch (error) {
+      console.log(JSON.stringify(error.message));
+      props.setErrMessage(error.message);
+      props.handleShowError();
+      setNewToDo({ name: "", description: "", due: "" })
+      props.refetch();
+    }
   }
 
 

@@ -21,8 +21,9 @@ query GetMyToDos($userId: String!) {
 `;
 
 export const QUERY_ONE_TODO = gql `
-query GetOneToDo($id: ID!) {
+query GetOneToDo($id: String!) {
   GetOneToDo(_id: $id) {
+    _id
     name
     description
     due
