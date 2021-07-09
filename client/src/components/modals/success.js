@@ -37,6 +37,14 @@ const SuccessModal = (props) => {
                 </Col>
               </Row>
             </>}
+            {props.btnName === "Delete" &&
+            <>
+              <Row>
+                <Col sm={12}>
+                  <p>You've deleted your to-do!</p>
+                </Col>
+              </Row>
+            </>}
           {props.btnName === "Edit" &&
             <>
               <Row>
@@ -47,7 +55,7 @@ const SuccessModal = (props) => {
             </>}
         </Modal.Body>
         <Modal.Footer>
-          {(props.btnName === "Create" || props.buttonName === "Edit") &&
+          {(props.btnName === "Create" || props.btnName === "Delete" || props.buttonName === "Edit") &&
             <Button data-toggle="popover" title="Close" className="button" onClick={props.hide}>Close</Button>}
         </Modal.Footer>
       </Modal>

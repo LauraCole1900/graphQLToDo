@@ -4,7 +4,7 @@ import { Button, Card, Col, Row } from "react-bootstrap";
 import { DELETE_TODO, EDIT_TODO, QUERY_ONE_TODO } from "../utils";
 
 const ToDoCard = (props) => {
-  const [deleteToDo, { deleteError, deleteData }] = useMutation(DELETE_TODO);
+  const [deleteToDo, { loading: deleting, deleteError, deleteData }] = useMutation(DELETE_TODO);
 
 
   const handleEdit = (e) => {
@@ -18,8 +18,22 @@ const ToDoCard = (props) => {
     e.preventDefault();
     const { dataset, name } = e.target;
     const toDoId = dataset.todoid
+    console.log({ toDoId })
     props.setBtnName(name);
-    
+    try {
+      if (deleting) return;
+      await deleteToDo({
+        variables: { id: toDoId }
+      })
+      props.handleShowSuccess();
+      props.refetch();
+    }
+    catch (error) {
+      console.log(JSON.stringify(error));
+      props.setErrMessage(error.message);
+      props.handleShowError();
+      props.refetch();
+    }
   }
 
 
