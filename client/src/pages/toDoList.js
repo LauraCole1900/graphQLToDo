@@ -29,15 +29,14 @@ const ToDoListPage = () => {
   }
 
   useEffect(() => {
-    
+
   }, [showSuccess]);
 
   // GraphQL variables
-  const { loading, error, data, refetch } = useQuery(QUERY_MY_TODOS, {
+  const { loading, data, refetch } = useQuery(QUERY_MY_TODOS, {
     variables: { userId: urlId }
   });
-  if (loading) return null;
-  const todoArr = data?.GetMyToDos;
+  const todoArr = data?.GetMyToDos || [];
   const arrToSort = [...todoArr];
   const sortedToDos = arrToSort.sort((a, b) => (a.due > b.due) ? 1 : -1)
   console.log({ urlId }, { todoArr }, { sortedToDos }, { btnName });

@@ -2,6 +2,13 @@ const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
 
+  input ToDoInput {
+    name: String!
+    description: String!
+    due: String
+    done: Boolean!
+  }
+
   type ToDo {
     userId: ID!
     _id: ID!
@@ -31,7 +38,7 @@ const typeDefs = gql`
     addUser(email: String!, password: String!): User
     createToDo(userId: String!, name: String!, description: String!, due: String, done: Boolean!): ToDo
     deleteToDo(_id: String!): ToDo
-    editToDo(_id: String!, name: String!, description: String! due: String, done: Boolean!): ToDo
+    editToDo(_id: String!, name: String!, description: String!, due: String, done: Boolean!): ToDo
   }
   `;
 

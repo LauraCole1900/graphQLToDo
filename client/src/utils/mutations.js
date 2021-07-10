@@ -36,7 +36,7 @@ export const DELETE_TODO = gql`
 `;
 
 export const EDIT_TODO = gql`
-  mutation editToDo($id: String!, $name: String! $description: String! $due: String, $done: Boolean!) {
+  mutation editToDo($id: String!, $name: String!, $description: String!, $due: String, $done: Boolean!) {
     editToDo(_id: $id, name: $name, description: $description, due: $due, done: $done) {
       _id
       name

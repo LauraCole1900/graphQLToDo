@@ -26,7 +26,7 @@ const resolvers = {
     deleteToDo: async (_, _id) => {
       return await ToDo.findOneAndDelete(_id)
     },
-    editToDo: async (_, { _id, name, description, due, done }) => {
+    editToDo: async (_, { _id, name, description, due, done}) => {
       return await ToDo.findOneAndUpdate({ _id, name, description, due, done })
     },
   }
