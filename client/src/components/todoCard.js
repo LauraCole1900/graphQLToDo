@@ -110,7 +110,7 @@ const ToDoCard = (props) => {
             <Row>
               <Col sm={1} className="check">
                 <InputGroup className="check">
-                  <InputGroup.Checkbox aria-label="Done?" name="done" data-todoid={todo._id} className="checkBox" defaultChecked={todo.done === true} onChange={(e) => handleCheckbox(e)} />
+                  <InputGroup.Checkbox aria-label="Done?" name="Done" data-todoid={todo._id} className="checkBox" defaultChecked={todo.done === true} onChange={(e) => handleCheckbox(e)} />
                 </InputGroup>
               </Col>
               <Col sm={11}>
