@@ -23,21 +23,22 @@ const ToDoCard = (props) => {
   // if (error) console.log(JSON.stringify(error));
 
   // Define data to be changed based on existing checkbox value
-  const setCheck = (value) => {
-    switch (value) {
-      case true:
-        props.setToDo({ ...props.toDo, done: false });
-        break;
-      default:
-        props.setToDo({ ...props.toDo, done: true });
-    }
-  }
+  // const setCheck = (value) => {
+  //   switch (value) {
+  //     case true:
+  //       props.setToDo({ ...props.toDo, done: false });
+  //       break;
+  //     default:
+  //       props.setToDo({ ...props.toDo, done: true });
+  //   }
+  // }
 
   const handleCheckbox = async (e) => {
-    const { dataset, name, value } = e.target;
+    const { dataset, value } = e.target;
     console.log("checkbox", value, dataset.todoid);
-    const toDoId = dataset.todoid;
+    // const toDoId = dataset.todoid;
     let thisToDo = await handleGetOne(e);
+    console.log({ thisToDo })
     if (thisToDo) {
       switch (value) {
         case true:
@@ -47,7 +48,7 @@ const ToDoCard = (props) => {
           thisToDo = { ...thisToDo, done: true };
       }
       console.log({ thisToDo });
-      props.setBtnName(name)
+      // props.setBtnName(name)
       try {
         await editToDo({
           variables: { id: thisToDo._id, name: thisToDo.name, description: thisToDo.description, due: thisToDo.due, done: thisToDo.done }
