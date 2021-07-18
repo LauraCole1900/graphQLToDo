@@ -25,7 +25,7 @@ const LandingPage = () => {
       <Container>
         <Row>
           <Col sm={12} className="center">
-            <h1>Welcome to My Unsecure GrapgQL To-Do App!</h1>
+            <h1>Welcome to My Unsecure GraphQL To-Do App!</h1>
           </Col>
         </Row>
         <Row>
