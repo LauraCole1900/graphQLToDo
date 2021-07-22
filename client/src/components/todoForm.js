@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useMutation } from "@apollo/client"
+import { useMutation } from "@apollo/client";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { CREATE_TODO, EDIT_TODO } from "../utils";
+import { CREATE_TODO, EDIT_TODO, QUERY_MY_TODOS } from "../utils";
 
 const ToDoForm = (props) => {
   const [toDo, setToDo] = useState(props.toDo || {
@@ -12,7 +12,19 @@ const ToDoForm = (props) => {
   });
 
   // GraphQL variables
-  const [createToDo, { addError, addData }] = useMutation(CREATE_TODO);
+  const [createToDo, { error }] = useMutation(CREATE_TODO, {
+    update(cache, { data: { createToDo } }) {
+      try {
+        const { toDos } = cache.readQuery({ query: QUERY_MY_TODOS });
+        cache.writeQuery({
+          query: QUERY_MY_TODOS,
+          data: { toDos: [...toDos, createToDo] },
+        })
+      } catch (err) {
+        console.log(JSON.stringify(err));
+      }
+    }
+  });
   const [editToDo, { editError, editData }] = useMutation(EDIT_TODO);
 
   if (props.btnName === "Edit") {
