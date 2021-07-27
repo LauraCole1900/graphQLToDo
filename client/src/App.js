@@ -1,11 +1,11 @@
 import React from "react";
 import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { LandingPage, NotFound, ToDoListPage } from "./pages";
 import './App.css';
 
 const client = new ApolloClient({
-  uri: '/graphql',
+  uri: "/graphql",
   cache: new InMemoryCache(),
 });
 
