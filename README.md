@@ -31,7 +31,7 @@ Login after signing up:
 ![Login modal](assets/login-modal-screencap.png)
 
 To-Dos page:
-![To-Dos page](assets/#.png)
+![To-Dos page](assets/to-do-list-screencap.png)
 
 ## Installation Instructions
 
