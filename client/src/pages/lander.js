@@ -10,6 +10,7 @@ const LandingPage = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [errMessage, setErrMessage] = useState();
 
+  // Modal methods
   const handleShowError = () => setShowError(true);
   const handleHideError = () => setShowError(false);
   const handleShowSuccess = () => setShowSuccess(true);

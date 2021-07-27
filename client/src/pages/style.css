@@ -1,12 +1,9 @@
 :root {
   --red: #ff0000;
-  --yellow: #fff000;
-  --darkGreen: #005c00;
   --darkBlue: #032c4b;
-  --silver: #e2e2e2;
   --bronze: #936418;
-  --gold: #ffd200;
-  --black: #000000;
+  --lightBronze: #dfb97c;
+  --bronzeGradient: linear-gradient(to top, var(--lightBronze), var(--bronze));
 }
 
 h1 {

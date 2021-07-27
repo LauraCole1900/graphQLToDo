@@ -15,15 +15,16 @@ const ToDoListPage = () => {
   const [showSuccess, setShowSuccess] = useState(false);
 
   // Pull userId from URL
-  const urlArray = window.location.href.split("/")
-  const urlId = urlArray[urlArray.length - 1]
+  const urlArray = window.location.href.split("/");
+  const urlId = urlArray[urlArray.length - 1];
 
-  // Modal variables
+  // Modal methods
   const handleShowError = () => setShowError(true);
   const handleHideError = () => setShowError(false);
   const handleShowSuccess = () => setShowSuccess(true);
   const handleHideSuccess = () => setShowSuccess(false);
 
+  // Returns user to login page
   const returnToSignin = () => {
     history.push("/");
   }
@@ -33,13 +34,14 @@ const ToDoListPage = () => {
   }, [showSuccess]);
 
   // GraphQL variables
+
+  // Query to-dos by user ID
   const { loading, data, refetch } = useQuery(QUERY_MY_TODOS, {
     variables: { userId: urlId }
   });
   const todoArr = data?.GetMyToDos || [];
   const arrToSort = [...todoArr];
-  const sortedToDos = arrToSort.sort((a, b) => (a.due > b.due) ? 1 : -1)
-  console.log({ urlId }, { todoArr }, { sortedToDos }, { btnName });
+  const sortedToDos = arrToSort.sort((a, b) => (a.due > b.due) ? 1 : -1);
 
 
   return (

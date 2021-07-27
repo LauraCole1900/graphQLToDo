@@ -14,47 +14,63 @@ const SigninForm = (props) => {
 
   // GraphQL variables
   const email = user.email;
+
+  // Add new user
   const [addUser, { addError, addData }] = useMutation(ADD_USER);
+
+  // Query one user
   const { loading, error, data, refetch } = useQuery(QUERY_ONE_USER,
     { variables: { email } });
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setUser({ ...user, [name]: value })
+    setUser({ ...user, [name]: value });
   };
 
   // Handles button click
   const handleButtonClick = async (e) => {
     e.preventDefault();
+    // Sets button name in state
     props.setBtnName(props.buttonName);
     switch (props.buttonName) {
       case "Sign Up":
+        // Runs addUser mutation
         try {
           const { data } = await addUser({
             variables: { ...user }
           });
-          console.log({ user });
+          // Shows success modal
           props.handleShowSuccess();
-          setUser({ email: "", password: "" })
+          // Resets form
+          setUser({ email: "", password: "" });
         }
         catch (error) {
           console.log(JSON.stringify(error.message));
+          // Sets error message in state for use on error modal
           props.setErrMessage(error.message);
+          // Shows error modal
           props.handleShowError();
-          setUser({ email: "", password: "" })
+          // Resets form
+          setUser({ email: "", password: "" });
         }
         break;
         default:
+          // Uses information from the GetOneUser query
           try {
           refetch();
           const authUser = data.GetOneUser || {};
-          console.log({ authUser })
+          // If authenticated user exists
           if (Object.keys(authUser).length) {
+            // and the email and password match what's in the database document
             if (authUser.email === user.email && authUser.password === user.password) {
-              history.push(`/mytodos/${authUser._id}`)
-            } else if (authUser.email === user.email & authUser.password !== user.password) {
-              props.setErrMessage("Incorrect password")
+              // push to that user's to-dos page
+              history.push(`/mytodos/${authUser._id}`);
+            // If email matches something in the database but the password doesn't match
+            } else if (authUser.email === user.email && authUser.password !== user.password) {
+              // set "Incorrect password" in state
+              props.setErrMessage("Incorrect password");
+              // and show the error modal
               props.handleShowError();
             }
           } else {
@@ -62,8 +78,10 @@ const SigninForm = (props) => {
           }
         }
         catch (error) {
-          console.log(JSON.stringify(error.message))
+          console.log(JSON.stringify(error.message));
+          // Sets error message in state for use on error modal
           props.setErrMessage(error.message);
+          // Shows error modal
           props.handleShowError();
         }
 

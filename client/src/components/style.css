@@ -36,7 +36,8 @@
 .checkBox {
   color: var(--darkBlue);
 }
-.checkBox:active, .checkBox:focus {
+.checkBox:active,
+.checkBox:focus {
   color: var(--bronze);
   background-color: var(--darkBlue);
 }
@@ -47,7 +48,8 @@
   padding: 0 5px 5px 0;
 }
 
-.todoCard, .signupForm {
+.todoCard,
+.signupForm {
   color: var(--darkBlue);
   border: 2px solid var(--darkBlue);
   border-radius: 15px;

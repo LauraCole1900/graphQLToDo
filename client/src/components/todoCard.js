@@ -74,7 +74,6 @@ const ToDoCard = (props) => {
     await GetOneToDo({ variables: { id: toDoId } });
     if (loading) return null;
     if (data) {
-      console.log(data.GetOneToDo);
       // Sets button name to "Edit"
       props.setBtnName(name);
       // Sets current to-do to query response

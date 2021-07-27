@@ -3,9 +3,8 @@ import { Button, Col, Modal, Row } from "react-bootstrap";
 import "./style.css";
 
 const ErrorModal = (props) => {
-  console.log(props.errMessage)
   const codeArr = props.errMessage?.split(" ");
-  console.log({ codeArr });
+  
 
   return (
     <>

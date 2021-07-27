@@ -1,13 +1,10 @@
 :root {
   --red: #ff0000;
-  --yellow: #fff000;
-  --darkGreen: #005c00;
   --lightBlue: #91cfff;
   --darkBlue: #032c4b;
-  --silver: #e2e2e2;
+  --lightBronze: #dfb97c;
   --bronze: #936418;
-  --gold: #ffd200;
-  --black: #000000;
+  --bronzeGradient: linear-gradient(to top, var(--lightBronze), var(--bronze));
 }
 
 body {
@@ -23,7 +20,9 @@ body {
   font-weight: 600;
   min-width: 5em;
 }
-.button:hover, button:focus, button:active {
+.button:hover,
+button:focus,
+button:active {
   color: var(--darkBlue);
   background-color: var(--bronze);
   border: 2px solid var(--darkBlue);
