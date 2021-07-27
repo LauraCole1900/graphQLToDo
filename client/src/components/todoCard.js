@@ -1,18 +1,32 @@
 import React, { useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { Button, Card, Col, InputGroup, Row } from "react-bootstrap";
-import { DELETE_TODO, EDIT_TODO, QUERY_MY_TODOS, QUERY_ONE_TODO } from "../utils";
+import { DELETE_TODO, MARK_DONE, QUERY_MY_TODOS, QUERY_ONE_TODO } from "../utils";
 
 const ToDoCard = (props) => {
   const [deleteToDo, { loading: deleting, deleteError, deleteData }] = useMutation(DELETE_TODO);
 
-  const [editToDo, { editLoading, editError, editData }] = useMutation(EDIT_TODO, {
-    update(cache, { data: { editToDo } }) {
+  // const [editToDo, { editLoading, editError, editData }] = useMutation(EDIT_TODO, {
+  //   update(cache, { data: { editToDo } }) {
+  //     try {
+  //       const { toDos } = cache.readQuery({ query: QUERY_MY_TODOS });
+  //       cache.writeQuery({
+  //         query: QUERY_MY_TODOS,
+  //         data: { toDos: [...toDos, editToDo] },
+  //       })
+  //     } catch (err) {
+  //       console.log(JSON.stringify(err));
+  //     }
+  //   }
+  // });
+  
+  const [markDone, { markLoading, markError, markData }] = useMutation(MARK_DONE, {
+    update(cache, { data: { markDone } }) {
       try {
         const { toDos } = cache.readQuery({ query: QUERY_MY_TODOS });
         cache.writeQuery({
           query: QUERY_MY_TODOS,
-          data: { toDos: [...toDos, editToDo] },
+          data: { toDos: [...toDos, markDone] },
         })
       } catch (err) {
         console.log(JSON.stringify(err));
@@ -62,8 +76,8 @@ const ToDoCard = (props) => {
       console.log({ thisToDo });
       // props.setBtnName(name)
       try {
-        await editToDo({
-          variables: { id: thisToDo._id, name: thisToDo.name, description: thisToDo.description, due: thisToDo.due, done: thisToDo.done }
+        await markDone({
+          variables: { id: thisToDo._id, done: thisToDo.done }
         })
         props.handleShowSuccess();
         props.refetch();

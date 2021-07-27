@@ -45,3 +45,11 @@ export const EDIT_TODO = gql`
     }
   }
 `;
+
+export const MARK_DONE = gql`
+  mutation markDone($id: ID!, $done: Boolean!) {
+    markDone(_id: $id, done: $done) {
+      done
+    }
+  }
+`;
