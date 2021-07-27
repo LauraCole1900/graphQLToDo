@@ -1,25 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { Button, Card, Col, InputGroup, Row } from "react-bootstrap";
 import { DELETE_TODO, MARK_DONE, QUERY_MY_TODOS, QUERY_ONE_TODO } from "../utils";
 
 const ToDoCard = (props) => {
+  
+  // GraphQL variables
+
+  // Delete
   const [deleteToDo, { loading: deleting, deleteError, deleteData }] = useMutation(DELETE_TODO);
 
-  // const [editToDo, { editLoading, editError, editData }] = useMutation(EDIT_TODO, {
-  //   update(cache, { data: { editToDo } }) {
-  //     try {
-  //       const { toDos } = cache.readQuery({ query: QUERY_MY_TODOS });
-  //       cache.writeQuery({
-  //         query: QUERY_MY_TODOS,
-  //         data: { toDos: [...toDos, editToDo] },
-  //       })
-  //     } catch (err) {
-  //       console.log(JSON.stringify(err));
-  //     }
-  //   }
-  // });
-
+  // Checkbox
   const [markDone, { markLoading, markError, markData }] = useMutation(MARK_DONE, {
     update(cache, { data: { markDone } }) {
       try {
@@ -33,70 +24,70 @@ const ToDoCard = (props) => {
       }
     }
   });
-  // if (editLoading) return null;
-  // if (editData) return editData;
-  // if (editError) console.log(JSON.stringify(editError));
-  // props.setBtnName("Done");
 
+  // Edit
   const [GetOneToDo, { loading, data, error }] = useLazyQuery(QUERY_ONE_TODO)
-  // if (loading) return null;
-  // if (data) {
-  //   console.log({ data });
-  //   props.setBtnName("Edit");
-  //   return data
-  // }
-  // props.setToDo(data?.GetOneToDo);
-  // if (error) console.log(JSON.stringify(error));
 
+  // Handles click on checkbox
   const handleCheckbox = async (e) => {
     const { dataset, name, value } = e.target;
-    let thisIsDone;
+    let isThisDone;
     console.log("checkbox", value, dataset.todoid);
     const toDoId = dataset.todoid;
+    // Sets boolean based on current checkbox value
     switch (value) {
       case "true":
-        thisIsDone = false;
+        isThisDone = false;
         break;
       default:
-        thisIsDone = true;
+        isThisDone = true;
     }
-      props.setBtnName(name)
-      try {
-        await markDone({
-          variables: { id: toDoId, done: thisIsDone }
-        })
-        props.handleShowSuccess();
-        props.refetch();
-      }
-      catch (error) {
-        console.log(JSON.stringify(error));
-        props.setErrMessage(error.message);
-        props.handleShowError();
-        props.refetch();
-      }
+    // Sets button name to "Done"
+    props.setBtnName(name)
+    // Runs markDone mutation
+    try {
+      await markDone({
+        variables: { id: toDoId, done: isThisDone }
+      })
+      props.handleShowSuccess();
+      props.refetch();
+    }
+    catch (error) {
+      console.log(JSON.stringify(error));
+      props.setErrMessage(error.message);
+      props.handleShowError();
+      props.refetch();
+    }
   }
   if (error) return error;
 
-  const handleGetOne = async (e) => {
+  // Handles click on "Edit" button
+  const handleEdit = async (e) => {
     e.preventDefault();
     const { dataset, name } = e.target;
     const toDoId = dataset.todoid;
+    // Runs GetOneToDo query
     await GetOneToDo({ variables: { id: toDoId } });
     if (loading) return null;
     if (data) {
       console.log(data.GetOneToDo);
+      // Sets button name to "Edit"
       props.setBtnName(name);
+      // Sets current to-do to query response
       props.setToDo(data?.GetOneToDo);
       return data.GetOneToDo;
     }
     if (error) console.log(JSON.stringify(error));
   }
 
+  // Handles click on "Delete" button
   const handleDelete = async (e) => {
     e.preventDefault();
     const { dataset, name } = e.target;
-    const toDoId = dataset.todoid
+    const toDoId = dataset.todoid;
+    // Sets button name to "Delete"
     props.setBtnName(name);
+    // Runs deleteToDo mutation
     try {
       if (deleting) return;
       await deleteToDo({
@@ -140,7 +131,7 @@ const ToDoCard = (props) => {
             </Row>
             <Row>
               <Col sm={12} className="cardBtns">
-                <Button data-toggle="popover" title="Edit" name="Edit" className="button" data-todoid={todo._id} onClick={(e) => handleGetOne(e)}>Edit</Button>
+                <Button data-toggle="popover" title="Edit" name="Edit" className="button" data-todoid={todo._id} onClick={(e) => handleEdit(e)}>Edit</Button>
                 <Button data-toggle="popover" title="Delete" name="Delete" className="button" data-todoid={todo._id} onClick={handleDelete}>Delete</Button>
               </Col>
             </Row>
