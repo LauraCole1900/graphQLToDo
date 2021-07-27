@@ -27,6 +27,12 @@
   margin-top: 0;
 }
 
+.check {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .checkBox {
   color: var(--darkBlue);
 }

@@ -19,7 +19,7 @@ const ToDoCard = (props) => {
   //     }
   //   }
   // });
-  
+
   const [markDone, { markLoading, markError, markData }] = useMutation(MARK_DONE, {
     update(cache, { data: { markDone } }) {
       try {
@@ -60,24 +60,32 @@ const ToDoCard = (props) => {
   // }
 
   const handleCheckbox = async (e) => {
-    const { dataset, value } = e.target;
+    const { dataset, name, value } = e.target;
+    let thisIsDone;
     console.log("checkbox", value, dataset.todoid);
-    // const toDoId = dataset.todoid;
-    let thisToDo = await handleGetOne(e);
-    console.log({ thisToDo })
-    if (thisToDo) {
-      switch (value) {
-        case true:
-          thisToDo = { ...thisToDo, done: false };
-          break;
-        default:
-          thisToDo = { ...thisToDo, done: true };
-      }
-      console.log({ thisToDo });
-      // props.setBtnName(name)
+    const toDoId = dataset.todoid;
+    switch (value) {
+      case "true":
+        thisIsDone = false;
+        break;
+      default:
+        thisIsDone = true;
+    }
+    // let thisToDo = await handleGetOne(e);
+    // console.log({ thisToDo })
+    // if (thisToDo) {
+      // switch (value) {
+      //   case true:
+      //     thisToDo = { ...thisToDo, done: false };
+      //     break;
+      //   default:
+      //     thisToDo = { ...thisToDo, done: true };
+      // }
+      // console.log({ thisToDo });
+      props.setBtnName(name)
       try {
         await markDone({
-          variables: { id: thisToDo._id, done: thisToDo.done }
+          variables: { id: toDoId, done: thisIsDone }
         })
         props.handleShowSuccess();
         props.refetch();
@@ -88,7 +96,7 @@ const ToDoCard = (props) => {
         props.handleShowError();
         props.refetch();
       }
-    }
+    // }
   }
   if (error) return error;
 
@@ -135,12 +143,13 @@ const ToDoCard = (props) => {
         <Card className="todoCard" key={todo._id}>
           <Card.Header className="cardHeader">
             <Row>
-              <Col sm={1} className="check">
+              <Col sm={2} className="check">
                 <InputGroup className="check">
-                  <InputGroup.Checkbox aria-label="Done?" name="Done" data-todoid={todo._id} className="checkBox" defaultChecked={todo.done === true} onChange={(e) => handleCheckbox(e)} />
+                  <InputGroup.Checkbox aria-label="Done?" name="Done" data-todoid={todo._id} className="checkBox" defaultChecked={todo.done === true} value={todo.done} onChange={(e) => handleCheckbox(e)} />
+                  <InputGroup.Text>&nbsp;Done</InputGroup.Text>
                 </InputGroup>
               </Col>
-              <Col sm={11}>
+              <Col sm={10}>
                 <h2 className="cardTitle">{todo.name}</h2>
               </Col>
             </Row>
