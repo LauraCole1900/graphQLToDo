@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { CREATE_TODO, EDIT_TODO, QUERY_MY_TODOS } from "../utils";
 
 const ToDoForm = (props) => {
-  const [toDo, setToDo] = useState(props.toDo || {
+  const [toDo, setToDo] = useState({
     name: "",
     description: "",
     due: "",
@@ -25,11 +25,20 @@ const ToDoForm = (props) => {
       }
     }
   });
-  const [editToDo, { editError, editData }] = useMutation(EDIT_TODO);
 
-  if (props.btnName === "Edit") {
-    console.log("props.toDo", props.toDo)
-  }
+  const [editToDo, { editLoading, editError, editData }] = useMutation(EDIT_TODO, {
+    update(cache, { data: { editToDo } }) {
+      try {
+        const { toDos } = cache.readQuery({ query: QUERY_MY_TODOS });
+        cache.writeQuery({
+          query: QUERY_MY_TODOS,
+          data: { toDos: [...toDos, editToDo] },
+        })
+      } catch (err) {
+        console.log(JSON.stringify(err));
+      }
+    }
+  });
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
@@ -60,13 +69,12 @@ const ToDoForm = (props) => {
   }
 
   // Handles form update
-  // Need todo._id--from where??
   const handleUpdate = async (e) => {
     e.preventDefault();
     props.setBtnName(e.target.name)
     try {
-      const { editData } = await editToDo({
-        variables: { ...toDo, _id: props.toDo._id }
+      await editToDo({
+        variables: { ...toDo, _id: toDo._id }
       });
       console.log({ toDo });
       props.handleShowSuccess();
@@ -81,6 +89,12 @@ const ToDoForm = (props) => {
       props.refetch();
     }
   }
+
+  useEffect(() => {
+    if (props.btnName === "Edit") {
+      setToDo(props.toDo)
+    }
+  }, [props.toDo])
 
 
   return (

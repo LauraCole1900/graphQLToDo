@@ -84,9 +84,9 @@ const ToDoCard = (props) => {
     await GetOneToDo({ variables: { id: toDoId } });
     if (loading) return null;
     if (data) {
-      console.log({ data });
+      console.log(data.GetOneToDo);
       props.setBtnName(name);
-      // props.setToDo(data?.GetOneToDo);
+      props.setToDo(data?.GetOneToDo);
       return data.GetOneToDo;
     }
     if (error) console.log(JSON.stringify(error));
