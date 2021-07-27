@@ -12,6 +12,8 @@ const ToDoForm = (props) => {
   });
 
   // GraphQL variables
+
+  // Create
   const [createToDo, { error }] = useMutation(CREATE_TODO, {
     update(cache, { data: { createToDo } }) {
       try {
@@ -19,13 +21,14 @@ const ToDoForm = (props) => {
         cache.writeQuery({
           query: QUERY_MY_TODOS,
           data: { toDos: [...toDos, createToDo] },
-        })
+        });
       } catch (err) {
         console.log(JSON.stringify(err));
       }
     }
   });
 
+  // Edit (Update)
   const [editToDo, { editLoading, editError, editData }] = useMutation(EDIT_TODO, {
     update(cache, { data: { editToDo } }) {
       try {
@@ -33,7 +36,7 @@ const ToDoForm = (props) => {
         cache.writeQuery({
           query: QUERY_MY_TODOS,
           data: { toDos: [...toDos, editToDo] },
-        })
+        });
       } catch (err) {
         console.log(JSON.stringify(err));
       }
@@ -43,27 +46,33 @@ const ToDoForm = (props) => {
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setToDo({ ...toDo, [name]: value })
+    setToDo({ ...toDo, [name]: value });
   };
 
   // Handles form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     props.setBtnName(e.target.name);
+    // Runs createToDo mutation
     try {
       const { data } = await createToDo({
         variables: { ...toDo, userId: props.urlId, done: false }
       });
-      console.log({ toDo });
+      // Shows success modal
       props.handleShowSuccess();
-      setToDo({ name: "", description: "", due: "" })
+      // Resets form
+      setToDo({ name: "", description: "", due: "" });
+      // Re-fetches to-dos so page re-renders
       props.refetch();
     }
     catch (error) {
-      console.log(JSON.stringify(error));
+      // Sets error message in state for use on error modal
       props.setErrMessage(error.message);
+      // Shows error modal
       props.handleShowError();
-      setToDo({ name: "", description: "", due: "" })
+      // Resets form
+      setToDo({ name: "", description: "", due: "" });
+      // Re-fetches to-dos so page re-renders
       props.refetch();
     }
   }
@@ -71,29 +80,35 @@ const ToDoForm = (props) => {
   // Handles form update
   const handleUpdate = async (e) => {
     e.preventDefault();
-    console.log({ toDo });
-    props.setBtnName(e.target.name)
+    props.setBtnName(e.target.name);
+    // Runs editToDo mutation
     try {
       const editData = await editToDo({
         variables: { id: toDo._id, ...toDo }
       });
-      if (editData) {
-        props.handleShowSuccess();
-        setToDo({ name: "", description: "", due: "" })
-        props.refetch();
-      }
+      // Shows success modal
+      props.handleShowSuccess();
+      // Resets form
+      setToDo({ name: "", description: "", due: "" });
+      // Re-fetches to-dos so page re-renders
+      props.refetch();
     }
     catch (error) {
-      console.log(JSON.stringify(error.message));
+      // Sets error message in state for use on error modal
       props.setErrMessage(error.message);
+      // Shows error modal
       props.handleShowError();
-      setToDo({ name: "", description: "", due: "" })
+      // Resets form
+      setToDo({ name: "", description: "", due: "" });
+      // Re-fetches to-dos so page re-renders
       props.refetch();
     }
   }
 
   useEffect(() => {
+    // Checks which button is in state
     if (props.btnName === "Edit") {
+      // If it's "edit", sets the selected to-do in state and fires rerender to populate the form
       setToDo(props.toDo)
     }
   }, [props.toDo])

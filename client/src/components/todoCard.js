@@ -4,7 +4,7 @@ import { Button, Card, Col, InputGroup, Row } from "react-bootstrap";
 import { DELETE_TODO, MARK_DONE, QUERY_MY_TODOS, QUERY_ONE_TODO } from "../utils";
 
 const ToDoCard = (props) => {
-  
+
   // GraphQL variables
 
   // Delete
@@ -32,7 +32,6 @@ const ToDoCard = (props) => {
   const handleCheckbox = async (e) => {
     let isThisDone;
     const { dataset, name, value } = e.target;
-    console.log("checkbox", value, dataset.todoid);
     const toDoId = dataset.todoid;
     // Sets boolean based on current checkbox value
     switch (value) {
@@ -49,13 +48,18 @@ const ToDoCard = (props) => {
       await markDone({
         variables: { id: toDoId, done: isThisDone }
       })
+      // Shows success modal
       props.handleShowSuccess();
+      // Rerenders to-dos
       props.refetch();
     }
     catch (error) {
       console.log(JSON.stringify(error));
+      // Sets error message in state for use on error modal
       props.setErrMessage(error.message);
+      // Shows error modal
       props.handleShowError();
+      // Re-fetches to-dos so page re-renders
       props.refetch();
     }
   }
@@ -92,14 +96,19 @@ const ToDoCard = (props) => {
       if (deleting) return;
       await deleteToDo({
         variables: { id: toDoId }
-      })
+      });
+      // Shows success modal
       props.handleShowSuccess();
+      // Re-fetches to-dos so page re-renders
       props.refetch();
     }
     catch (error) {
       console.log(JSON.stringify(error));
+      // Sets error message in state for use on error modal
       props.setErrMessage(error.message);
+      // Shows error modal
       props.handleShowError();
+      // Re-fetches to-dos so page re-renders
       props.refetch();
     }
   }
