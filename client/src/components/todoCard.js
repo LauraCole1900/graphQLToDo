@@ -1,12 +1,24 @@
 import React, { useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { Button, Card, Col, InputGroup, Row } from "react-bootstrap";
-import { DELETE_TODO, EDIT_TODO, QUERY_ONE_TODO } from "../utils";
+import { DELETE_TODO, EDIT_TODO, QUERY_MY_TODOS, QUERY_ONE_TODO } from "../utils";
 
 const ToDoCard = (props) => {
   const [deleteToDo, { loading: deleting, deleteError, deleteData }] = useMutation(DELETE_TODO);
 
-  const [editToDo, { editLoading, editError, editData }] = useMutation(EDIT_TODO);
+  const [editToDo, { editLoading, editError, editData }] = useMutation(EDIT_TODO, {
+    update(cache, { data: { editToDo } }) {
+      try {
+        const { toDos } = cache.readQuery({ query: QUERY_MY_TODOS });
+        cache.writeQuery({
+          query: QUERY_MY_TODOS,
+          data: { toDos: [...toDos, editToDo] },
+        })
+      } catch (err) {
+        console.log(JSON.stringify(err));
+      }
+    }
+  });
   // if (editLoading) return null;
   // if (editData) return editData;
   // if (editError) console.log(JSON.stringify(editError));
