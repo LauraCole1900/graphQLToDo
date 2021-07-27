@@ -46,7 +46,7 @@ const ToDoForm = (props) => {
     setToDo({ ...toDo, [name]: value })
   };
 
-  // Handles for submit
+  // Handles form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     props.setBtnName(e.target.name);
@@ -71,12 +71,12 @@ const ToDoForm = (props) => {
   // Handles form update
   const handleUpdate = async (e) => {
     e.preventDefault();
+    console.log({ toDo });
     props.setBtnName(e.target.name)
     try {
       await editToDo({
-        variables: { ...toDo, _id: toDo._id }
+        variables: { _id: toDo._id, name: toDo.name, description: toDo.description, due: toDo.due }
       });
-      console.log({ toDo });
       props.handleShowSuccess();
       setToDo({ name: "", description: "", due: "" })
       props.refetch();

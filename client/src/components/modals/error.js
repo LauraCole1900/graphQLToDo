@@ -29,6 +29,8 @@ const ErrorModal = (props) => {
                     <p>Please enter a valid email!</p>}
                   {props.errMessage === "User validation failed: password: Path `password` is required." &&
                     <p>Please enter a password!</p>}
+                  {codeArr?.includes("400") &&
+                    <p>The database was not updated with your changes.</p>}
                 </>}
               {props.btnName === "Login" &&
                 <>
@@ -40,7 +42,7 @@ const ErrorModal = (props) => {
                 <>
                   <p>Your to-do couldn't be processed at this time.</p>
                 </>}
-                {(props.btnName === "Done" || props.btnName === "Edit") &&
+              {(props.btnName === "Done" || props.btnName === "Edit") &&
                 <>
                   <p>Your to-do couldn't be updated at this time.</p>
                 </>}

@@ -30,8 +30,8 @@ const ToDoCard = (props) => {
 
   // Handles click on checkbox
   const handleCheckbox = async (e) => {
-    const { dataset, name, value } = e.target;
     let isThisDone;
+    const { dataset, name, value } = e.target;
     console.log("checkbox", value, dataset.todoid);
     const toDoId = dataset.todoid;
     // Sets boolean based on current checkbox value
