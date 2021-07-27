@@ -74,12 +74,14 @@ const ToDoForm = (props) => {
     console.log({ toDo });
     props.setBtnName(e.target.name)
     try {
-      await editToDo({
-        variables: { _id: toDo._id, name: toDo.name, description: toDo.description, due: toDo.due }
+      const editData = await editToDo({
+        variables: { id: toDo._id, ...toDo }
       });
-      props.handleShowSuccess();
-      setToDo({ name: "", description: "", due: "" })
-      props.refetch();
+      if (editData) {
+        props.handleShowSuccess();
+        setToDo({ name: "", description: "", due: "" })
+        props.refetch();
+      }
     }
     catch (error) {
       console.log(JSON.stringify(error.message));
