@@ -49,15 +49,7 @@ const SuccessModal = (props) => {
             <>
               <Row>
                 <Col sm={12}>
-                  <p>Your to-do has been marked 'done'!</p>
-                </Col>
-              </Row>
-            </>}
-          {props.btnName === "Edit" &&
-            <>
-              <Row>
-                <Col sm={12}>
-                  <p>Congratulations! Your to-do is marked "done!"</p>
+                  <p>Your to-do's doneness has been changed!</p>
                 </Col>
               </Row>
             </>}
