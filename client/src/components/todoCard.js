@@ -71,7 +71,7 @@ const ToDoCard = (props) => {
     const { dataset, name } = e.target;
     const toDoId = dataset.todoid;
     // Runs GetOneToDo query
-    await GetOneToDo({ variables: { id: toDoId } });
+    GetOneToDo({ variables: { id: toDoId } });
     if (loading) return null;
     if (data) {
       // Sets button name to "Edit"

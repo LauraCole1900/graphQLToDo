@@ -31,7 +31,7 @@ const ToDoListPage = () => {
 
   useEffect(() => {
 
-  }, [showSuccess]);
+  }, [toDo, showSuccess]);
 
   // GraphQL variables
 
