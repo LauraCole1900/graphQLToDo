@@ -109,9 +109,9 @@ const ToDoForm = (props) => {
     // Checks which button is in state
     if (props.btnName === "Edit") {
       // If it's "edit", sets the selected to-do in state and fires rerender to populate the form
-      setToDo(props.toDo)
+      // setToDo(initToDo)
     }
-  }, [props.toDo])
+  }, [])
 
 
   return (

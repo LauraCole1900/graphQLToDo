@@ -4,7 +4,7 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
 import { ToDoCard, ToDoForm } from "../components";
 import { ErrorModal, SuccessModal } from "../components/modals";
-import { QUERY_MY_TODOS } from "../utils";
+import { QUERY_MY_TODOS, ToDoProvider } from "../utils";
 
 const ToDoListPage = () => {
   const history = useHistory();
@@ -70,15 +70,17 @@ const ToDoListPage = () => {
           </Col>
 
           <Col sm={6}>
-            <ToDoCard toDos={sortedToDos} setBtnName={setBtnName} refetch={() => refetch()} setToDo={setToDo} setErrMessage={setErrMessage} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} />
-          </Col>
-        </Row>
+            {/* <ToDoProvider value={{ toDo, setToDo }} > */}
+              <ToDoCard toDos={sortedToDos} refetch={() => refetch()} setErrMessage={setErrMessage} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} />
+            {/* </ToDoProvider> */}
+        </Col>
+      </Row>
 
-        <ErrorModal show={showError === true} hide={() => handleHideError()} btnName={btnName} errMessage={errMessage} />
+      <ErrorModal show={showError === true} hide={() => handleHideError()} btnName={btnName} errMessage={errMessage} />
 
-        <SuccessModal show={showSuccess === true} hide={() => handleHideSuccess()} btnName={btnName} setBtnName={setBtnName} />
+      <SuccessModal show={showSuccess === true} hide={() => handleHideSuccess()} btnName={btnName} setBtnName={setBtnName} />
 
-      </Container>
+    </Container>
     </>
   )
 }

@@ -1,9 +1,10 @@
 import React from "react";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { Button, Card, Col, InputGroup, Row } from "react-bootstrap";
-import { DELETE_TODO, MARK_DONE, QUERY_MY_TODOS, QUERY_ONE_TODO } from "../utils";
+import { DELETE_TODO, MARK_DONE, QUERY_MY_TODOS, QUERY_ONE_TODO, useToDo } from "../utils";
 
 const ToDoCard = (props) => {
+  const { setToDo, setBtnName } = useToDo();
 
   // GraphQL variables
 
@@ -42,7 +43,7 @@ const ToDoCard = (props) => {
         isThisDone = true;
     }
     // Sets button name to "Done"
-    props.setBtnName(name)
+    setBtnName(name)
     // Runs markDone mutation
     try {
       await markDone({
@@ -75,9 +76,9 @@ const ToDoCard = (props) => {
     if (loading) return null;
     if (data) {
       // Sets button name to "Edit"
-      props.setBtnName(name);
+      setBtnName(name);
       // Sets current to-do to query response
-      props.setToDo(data?.GetOneToDo);
+      setToDo(data?.GetOneToDo);
       return data.GetOneToDo;
     }
     if (error) console.log(JSON.stringify(error));
