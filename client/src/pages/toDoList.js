@@ -70,9 +70,7 @@ const ToDoListPage = () => {
           </Col>
 
           <Col sm={6}>
-            {/* <ToDoProvider value={{ toDo, setToDo }} > */}
-              <ToDoCard toDos={sortedToDos} refetch={() => refetch()} setErrMessage={setErrMessage} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} />
-            {/* </ToDoProvider> */}
+              <ToDoCard toDos={sortedToDos} refetch={() => refetch()} setErrMessage={setErrMessage} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} btnName={btnName} setBtnName={setBtnName} />
         </Col>
       </Row>
 
