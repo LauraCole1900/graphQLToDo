@@ -84,7 +84,6 @@ const SigninForm = (props) => {
           // Shows error modal
           props.handleShowError();
         }
-
     }
   }
 
