@@ -45,6 +45,18 @@ export const EDIT_TODO = gql`
   }
 `;
 
+export const LOGIN = gql`
+  mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      token
+      user {
+        _id
+        email
+      }
+    }
+  }
+`;
+
 export const MARK_DONE = gql`
   mutation markDone($id: ID!, $done: Boolean!) {
     markDone(_id: $id, done: $done) {

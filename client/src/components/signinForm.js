@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { Button, Col, Form, Row } from "react-bootstrap"
-import { ADD_USER, QUERY_ONE_USER } from "../utils";
+import { ADD_USER, LOGIN } from "../utils";
+import Auth from '../utils/auth';
 import "./style.css";
 
 const SigninForm = (props) => {
@@ -18,9 +19,8 @@ const SigninForm = (props) => {
   // Add new user
   const [addUser, { addError, addData }] = useMutation(ADD_USER);
 
-  // Query one user
-  const { loading, error, data, refetch } = useQuery(QUERY_ONE_USER,
-    { variables: { email } });
+  // Login user
+  const [login, { error }] = useMutation(LOGIN);
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
@@ -55,34 +55,22 @@ const SigninForm = (props) => {
           setUser({ email: "", password: "" });
         }
         break;
-        default:
-          // Uses information from the GetOneUser query
-          try {
-          refetch();
-          const authUser = data.GetOneUser || {};
-          // If authenticated user exists
-          if (Object.keys(authUser).length) {
-            // and the email and password match what's in the database document
-            if (authUser.email === user.email && authUser.password === user.password) {
-              // push to that user's to-dos page
-              history.push(`/mytodos/${authUser._id}`);
-            // If email matches something in the database but the password doesn't match
-            } else if (authUser.email === user.email && authUser.password !== user.password) {
-              // set "Incorrect password" in state
-              props.setErrMessage("Incorrect password");
-              // and show the error modal
-              props.handleShowError();
-            }
-          } else {
-            throw Error;
-          }
-        }
-        catch (error) {
-          console.log(JSON.stringify(error.message));
+      default:
+        // Uses information from the GetOneUser query
+        try {
+          const { data } = await login({
+            variables: { ...user },
+          });
+          console.log({ data });
+          Auth.login(data.login.token);
+          history.push(`/mytodos/${data.login.user._id}`);
+        } catch (error) {
+          console.log(JSON.parse(JSON.stringify(error)));
           // Sets error message in state for use on error modal
           props.setErrMessage(error.message);
           // Shows error modal
           props.handleShowError();
+          setUser({ email: "", password: "" });
         }
     }
   }

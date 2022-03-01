@@ -3,7 +3,6 @@ import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from "@apollo/client/link/context";
 import { LandingPage, NotFound, ToDoListPage } from "./pages";
-import { ToDoProvider, useToDo } from "./utils";
 import './App.css';
 
 const httpLink = createHttpLink({
@@ -28,18 +27,15 @@ const client = new ApolloClient({
 });
 
 const App = () => {
-  const { toDo, setToDo, btnName, setBtnName } = useToDo();
 
   return (
     <ApolloProvider client={client}>
       <Router>
-        <ToDoProvider value={{ toDo, setToDo, btnName, setBtnName }}>
-          <Switch>
-            <Route path="/mytodos/*" component={ToDoListPage} />
-            <Route exact path="/" component={LandingPage} />
-            <Route component={NotFound} />
-          </Switch>
-        </ToDoProvider>
+        <Switch>
+          <Route path="/mytodos/*" component={ToDoListPage} />
+          <Route exact path="/" component={LandingPage} />
+          <Route component={NotFound} />
+        </Switch>
       </Router>
     </ApolloProvider>
   );
