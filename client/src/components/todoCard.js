@@ -50,8 +50,6 @@ const ToDoCard = (props) => {
       })
       // Shows success modal
       props.handleShowSuccess();
-      // Rerenders to-dos
-      props.refetch();
     }
     catch (error) {
       console.log(JSON.stringify(error));
@@ -59,8 +57,6 @@ const ToDoCard = (props) => {
       props.setErrMessage(error.message);
       // Shows error modal
       props.handleShowError();
-      // Re-fetches to-dos so page re-renders
-      props.refetch();
     }
   }
   if (error) return error;
@@ -96,8 +92,6 @@ const ToDoCard = (props) => {
       });
       // Shows success modal
       props.handleShowSuccess();
-      // Re-fetches to-dos so page re-renders
-      props.refetch();
     }
     catch (error) {
       console.log(JSON.stringify(error));
@@ -105,8 +99,6 @@ const ToDoCard = (props) => {
       props.setErrMessage(error.message);
       // Shows error modal
       props.handleShowError();
-      // Re-fetches to-dos so page re-renders
-      props.refetch();
     }
   }
 

@@ -26,7 +26,7 @@ const ToDoListPage = () => {
   // GraphQL variables
 
   // Query to-dos by user ID
-  const { loading, data, refetch } = useQuery(QUERY_MY_TODOS);
+  const { loading, data } = useQuery(QUERY_MY_TODOS);
   const todoArr = data?.GetMyToDos || [];
   console.log({ todoArr });
   const arrToSort = [...todoArr];
@@ -55,11 +55,11 @@ const ToDoListPage = () => {
         </Row>
         <Row>
           <Col sm={6}>
-            <ToDoForm setBtnName={setBtnName} handleShowSuccess={handleShowSuccess} handleShowError={handleShowError} setErrMessage={setErrMessage} btnName={btnName} toDo={toDo} refetch={() => refetch()} />
+            <ToDoForm setBtnName={setBtnName} handleShowSuccess={handleShowSuccess} handleShowError={handleShowError} setErrMessage={setErrMessage} btnName={btnName} toDo={toDo} />
           </Col>
 
           <Col sm={6}>
-            <ToDoCard toDos={sortedToDos} refetch={() => refetch()} setErrMessage={setErrMessage} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} btnName={btnName} setBtnName={setBtnName} toDo={toDo} setToDo={setToDo} />
+            <ToDoCard toDos={sortedToDos} setErrMessage={setErrMessage} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} btnName={btnName} setBtnName={setBtnName} toDo={toDo} setToDo={setToDo} />
           </Col>
         </Row>
 

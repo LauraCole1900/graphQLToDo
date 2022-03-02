@@ -16,11 +16,13 @@ const ToDoForm = (props) => {
   // Create
   const [createToDo, { error }] = useMutation(CREATE_TODO, {
     update(cache, { data: { createToDo } }) {
+      console.log({ createToDo });
       try {
-        const { toDos } = cache.readQuery({ query: QUERY_MY_TODOS });
+        const data = cache.readQuery({ query: QUERY_MY_TODOS });
+        const toDos = data.GetMyToDos;
         cache.writeQuery({
           query: QUERY_MY_TODOS,
-          data: { toDos: [...toDos, createToDo] },
+          data: { GetMyToDos: [...toDos, createToDo] },
         });
       } catch (err) {
         console.log(JSON.parse(JSON.stringify(err)));
@@ -64,8 +66,6 @@ const ToDoForm = (props) => {
       props.handleShowSuccess();
       // Resets form
       setToDo({ name: "", description: "", due: "" });
-      // Re-fetches to-dos so page re-renders
-      props.refetch();
     }
     catch (error) {
       console.log(JSON.parse(JSON.stringify(error)));
@@ -75,8 +75,6 @@ const ToDoForm = (props) => {
       props.handleShowError();
       // Resets form
       setToDo({ name: "", description: "", due: "" });
-      // Re-fetches to-dos so page re-renders
-      props.refetch();
     }
   }
 
@@ -93,8 +91,6 @@ const ToDoForm = (props) => {
       props.handleShowSuccess();
       // Resets form
       setToDo({ name: "", description: "", due: "" });
-      // Re-fetches to-dos so page re-renders
-      props.refetch();
     }
     catch (error) {
       // Sets error message in state for use on error modal
@@ -103,8 +99,6 @@ const ToDoForm = (props) => {
       props.handleShowError();
       // Resets form
       setToDo({ name: "", description: "", due: "" });
-      // Re-fetches to-dos so page re-renders
-      props.refetch();
     }
   }
 
