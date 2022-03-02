@@ -16,7 +16,6 @@ const ToDoForm = (props) => {
   // Create
   const [createToDo, { error }] = useMutation(CREATE_TODO, {
     update(cache, { data: { createToDo } }) {
-      console.log({ createToDo });
       try {
         const data = cache.readQuery({ query: QUERY_MY_TODOS });
         const toDos = data.GetMyToDos;

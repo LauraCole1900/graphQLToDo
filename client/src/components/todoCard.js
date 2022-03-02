@@ -1,15 +1,28 @@
 import React from "react";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { Button, Card, Col, InputGroup, Row } from "react-bootstrap";
-import { DELETE_TODO, MARK_DONE, QUERY_MY_TODOS, QUERY_ONE_TODO, useToDo } from "../utils";
+import { DELETE_TODO, MARK_DONE, QUERY_MY_TODOS, QUERY_ONE_TODO } from "../utils";
 
 const ToDoCard = (props) => {
-  // const { setToDo, setBtnName } = useToDo();
 
   // GraphQL variables
 
   // Delete
-  const [deleteToDo, { loading: deleting, deleteError, deleteData }] = useMutation(DELETE_TODO);
+  const [deleteToDo, { loading: deleting, deleteError, deleteData }] = useMutation(DELETE_TODO, {
+    update(cache, { data: {deleteToDo}}) {
+      try {
+        const data = cache.readQuery({ query: QUERY_MY_TODOS });
+        const toDos = data.GetMyToDos;
+        const filteredToDos = toDos.filter(toDo => toDo._id !== deleteToDo._id);
+        cache.writeQuery({
+          query: QUERY_MY_TODOS,
+          data: { GetMyToDos: [...filteredToDos] },
+        });
+      } catch (err) {
+        console.log(JSON.parse(JSON.stringify(err)));
+      }
+    }
+  });
 
   // Checkbox
   const [markDone, { markLoading, markError, markData }] = useMutation(MARK_DONE, {
@@ -21,7 +34,7 @@ const ToDoCard = (props) => {
           data: { toDos: [...toDos, markDone] },
         })
       } catch (err) {
-        console.log(JSON.stringify(err));
+        console.log(JSON.parse(JSON.stringify(err)));
       }
     }
   });
@@ -52,7 +65,7 @@ const ToDoCard = (props) => {
       props.handleShowSuccess();
     }
     catch (error) {
-      console.log(JSON.stringify(error));
+      console.log(JSON.parse(JSON.stringify(error)));
       // Sets error message in state for use on error modal
       props.setErrMessage(error.message);
       // Shows error modal
@@ -94,7 +107,7 @@ const ToDoCard = (props) => {
       props.handleShowSuccess();
     }
     catch (error) {
-      console.log(JSON.stringify(error));
+      console.log(JSON.parse(JSON.stringify(error)));
       // Sets error message in state for use on error modal
       props.setErrMessage(error.message);
       // Shows error modal

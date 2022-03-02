@@ -28,7 +28,6 @@ const ToDoListPage = () => {
   // Query to-dos by user ID
   const { loading, data } = useQuery(QUERY_MY_TODOS);
   const todoArr = data?.GetMyToDos || [];
-  console.log({ todoArr });
   const arrToSort = [...todoArr];
   const sortedToDos = arrToSort.sort((a, b) => (a.due > b.due) ? 1 : -1);
 
