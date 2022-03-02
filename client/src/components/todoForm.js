@@ -23,7 +23,7 @@ const ToDoForm = (props) => {
           data: { toDos: [...toDos, createToDo] },
         });
       } catch (err) {
-        console.log(JSON.stringify(err));
+        console.log(JSON.parse(JSON.stringify(err)));
       }
     }
   });
@@ -38,7 +38,7 @@ const ToDoForm = (props) => {
           data: { toDos: [...toDos, editToDo] },
         });
       } catch (err) {
-        console.log(JSON.stringify(err));
+        console.log(JSON.parse(JSON.stringify(err)));
       }
     }
   });
@@ -51,13 +51,15 @@ const ToDoForm = (props) => {
 
   // Handles form submit
   const handleSubmit = async (e) => {
+    console.log({ toDo });
     e.preventDefault();
     props.setBtnName(e.target.name);
     // Runs createToDo mutation
     try {
       const { data } = await createToDo({
-        variables: { ...toDo, userId: props.urlId, done: false }
+        variables: { ...toDo, done: false }
       });
+      console.log({ data });
       // Shows success modal
       props.handleShowSuccess();
       // Resets form
@@ -66,6 +68,7 @@ const ToDoForm = (props) => {
       props.refetch();
     }
     catch (error) {
+      console.log(JSON.parse(JSON.stringify(error)));
       // Sets error message in state for use on error modal
       props.setErrMessage(error.message);
       // Shows error modal

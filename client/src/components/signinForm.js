@@ -63,7 +63,7 @@ const SigninForm = (props) => {
           });
           console.log({ data });
           Auth.login(data.login.token);
-          history.push(`/mytodos/${data.login.user._id}`);
+          history.push(`/mytodos`);
         } catch (error) {
           console.log(JSON.parse(JSON.stringify(error)));
           // Sets error message in state for use on error modal

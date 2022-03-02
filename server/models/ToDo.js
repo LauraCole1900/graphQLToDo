@@ -3,6 +3,7 @@ const { Schema, model } = require("mongoose");
 const toDoSchema = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
+    ref: "User",
     required: true
   },
   name: {

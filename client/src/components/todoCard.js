@@ -30,10 +30,9 @@ const ToDoCard = (props) => {
   const [GetOneToDo, { loading, data, error }] = useLazyQuery(QUERY_ONE_TODO)
 
   // Handles click on checkbox
-  const handleCheckbox = async (e) => {
+  const handleCheckbox = async (e, toDoId) => {
     let isThisDone;
-    const { dataset, name, value } = e.target;
-    const toDoId = dataset.todoid;
+    const { name, value } = e.target;
     // Sets boolean based on current checkbox value
     switch (value) {
       case "true":
@@ -67,10 +66,9 @@ const ToDoCard = (props) => {
   if (error) return error;
 
   // Handles click on "Edit" button
-  const handleEdit = async (e) => {
+  const handleEdit = async (e, toDoId) => {
     e.preventDefault();
-    const { dataset, name } = e.target;
-    const toDoId = dataset.todoid;
+    const { name } = e.target;
     // Runs GetOneToDo query
     GetOneToDo({ variables: { id: toDoId } });
     if (loading) return null;
@@ -81,14 +79,13 @@ const ToDoCard = (props) => {
       props.setToDo(data?.GetOneToDo);
       return data.GetOneToDo;
     }
-    if (error) console.log(JSON.stringify(error));
+    if (error) console.log(JSON.parse(JSON.stringify(error)));
   }
 
   // Handles click on "Delete" button
-  const handleDelete = async (e) => {
+  const handleDelete = async (e, toDoId) => {
     e.preventDefault();
-    const { dataset, name } = e.target;
-    const toDoId = dataset.todoid;
+    const { name } = e.target;
     // Sets button name to "Delete"
     props.setBtnName(name);
     // Runs deleteToDo mutation
@@ -122,7 +119,7 @@ const ToDoCard = (props) => {
             <Row>
               <Col sm={2} className="check">
                 <InputGroup className="check">
-                  <InputGroup.Checkbox aria-label="Done?" name="Done" data-todoid={todo._id} className="checkBox" defaultChecked={todo.done === true} value={todo.done} onChange={(e) => handleCheckbox(e)} />
+                  <InputGroup.Checkbox aria-label="Done?" name="Done" className="checkBox" defaultChecked={todo.done === true} value={todo.done} onChange={(e) => handleCheckbox(e, todo._id)} />
                   <InputGroup.Text>&nbsp;Done</InputGroup.Text>
                 </InputGroup>
               </Col>
@@ -140,8 +137,8 @@ const ToDoCard = (props) => {
             </Row>
             <Row>
               <Col sm={12} className="cardBtns">
-                <Button data-toggle="popover" title="Edit" name="Edit" className="button" data-todoid={todo._id} onClick={(e) => handleEdit(e)}>Edit</Button>
-                <Button data-toggle="popover" title="Delete" name="Delete" className="button" data-todoid={todo._id} onClick={handleDelete}>Delete</Button>
+                <Button data-toggle="popover" title="Edit" name="Edit" className="button" onClick={(e) => handleEdit(e, todo._id)}>Edit</Button>
+                <Button data-toggle="popover" title="Delete" name="Delete" className="button" onClick={(e) => handleDelete(e, todo._id)}>Delete</Button>
               </Col>
             </Row>
           </Card.Body>

@@ -1,33 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
 import { ToDoCard, ToDoForm } from "../components";
 import { ErrorModal, SuccessModal } from "../components/modals";
 import { QUERY_MY_TODOS, ToDoProvider } from "../utils";
+import Auth from "../utils/auth";
 
 const ToDoListPage = () => {
-  const history = useHistory();
   const [toDo, setToDo] = useState();
   const [btnName, setBtnName] = useState();
   const [errMessage, setErrMessage] = useState();
   const [showError, setShowError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  // Pull userId from URL
-  const urlArray = window.location.href.split("/");
-  const urlId = urlArray[urlArray.length - 1];
-
   // Modal methods
   const handleShowError = () => setShowError(true);
   const handleHideError = () => setShowError(false);
   const handleShowSuccess = () => setShowSuccess(true);
   const handleHideSuccess = () => setShowSuccess(false);
-
-  // Returns user to login page
-  const returnToSignin = () => {
-    history.push("/");
-  }
 
   useEffect(() => {
 
@@ -36,10 +26,9 @@ const ToDoListPage = () => {
   // GraphQL variables
 
   // Query to-dos by user ID
-  const { loading, data, refetch } = useQuery(QUERY_MY_TODOS, {
-    variables: { userId: urlId }
-  });
+  const { loading, data, refetch } = useQuery(QUERY_MY_TODOS);
   const todoArr = data?.GetMyToDos || [];
+  console.log({ todoArr });
   const arrToSort = [...todoArr];
   const sortedToDos = arrToSort.sort((a, b) => (a.due > b.due) ? 1 : -1);
 
@@ -61,24 +50,24 @@ const ToDoListPage = () => {
             <h1>My To-Do List</h1>
           </Col>
           <Col sm={2} className="right">
-            <Button data-toggle="popover" title="Logout" name="Logout" className="button" onClick={returnToSignin}>Logout</Button>
+            <Button data-toggle="popover" title="Logout" name="Logout" className="button" onClick={Auth.logout}>Logout</Button>
           </Col>
         </Row>
         <Row>
           <Col sm={6}>
-            <ToDoForm setBtnName={setBtnName} handleShowSuccess={handleShowSuccess} handleShowError={handleShowError} setErrMessage={setErrMessage} urlId={urlId} btnName={btnName} toDo={toDo} refetch={() => refetch()} />
+            <ToDoForm setBtnName={setBtnName} handleShowSuccess={handleShowSuccess} handleShowError={handleShowError} setErrMessage={setErrMessage} btnName={btnName} toDo={toDo} refetch={() => refetch()} />
           </Col>
 
           <Col sm={6}>
-              <ToDoCard toDos={sortedToDos} refetch={() => refetch()} setErrMessage={setErrMessage} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} btnName={btnName} setBtnName={setBtnName} toDo={toDo} setToDo={setToDo} />
-        </Col>
-      </Row>
+            <ToDoCard toDos={sortedToDos} refetch={() => refetch()} setErrMessage={setErrMessage} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} btnName={btnName} setBtnName={setBtnName} toDo={toDo} setToDo={setToDo} />
+          </Col>
+        </Row>
 
-      <ErrorModal show={showError === true} hide={() => handleHideError()} btnName={btnName} errMessage={errMessage} />
+        <ErrorModal show={showError === true} hide={() => handleHideError()} btnName={btnName} errMessage={errMessage} />
 
-      <SuccessModal show={showSuccess === true} hide={() => handleHideSuccess()} btnName={btnName} setBtnName={setBtnName} />
+        <SuccessModal show={showSuccess === true} hide={() => handleHideSuccess()} btnName={btnName} setBtnName={setBtnName} />
 
-    </Container>
+      </Container>
     </>
   )
 }

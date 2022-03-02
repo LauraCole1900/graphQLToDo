@@ -11,8 +11,14 @@ const resolvers = {
         throw new AuthenticationError("Must be logged in");
       }
     },
-    GetMyToDos: async (_, userId) => {
-      return await ToDo.find(userId)
+    GetMyToDos: async (_, __, context) => {
+      if (context.user) {
+        const todos = await ToDo.find({ userId: context.user._id })
+        console.log({todos});
+        return todos;
+      } else {
+        throw new AuthenticationError("Must be logged in");
+      }
     },
     GetOneToDo: async (_, id) => {
       return await ToDo.findOne(id)
@@ -29,8 +35,8 @@ const resolvers = {
     addUser: async (_, { email, password }) => {
       return await User.create({ email, password })
     },
-    createToDo: async (_, { userId, name, description, due, done }) => {
-      return await ToDo.create({ userId, name, description, due, done })
+    createToDo: async (_, { name, description, due, done }, context) => {
+      return await ToDo.create({ userId: context.user._id, name: name, description: description, due: due, done: done })
     },
     deleteToDo: async (_, _id) => {
       return await ToDo.findOneAndDelete(_id)

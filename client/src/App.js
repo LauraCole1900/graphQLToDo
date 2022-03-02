@@ -32,7 +32,7 @@ const App = () => {
     <ApolloProvider client={client}>
       <Router>
         <Switch>
-          <Route path="/mytodos/*" component={ToDoListPage} />
+          <Route path="/mytodos" component={ToDoListPage} />
           <Route exact path="/" component={LandingPage} />
           <Route component={NotFound} />
         </Switch>
