@@ -20,7 +20,7 @@ const ToDoListPage = () => {
   const handleHideSuccess = () => setShowSuccess(false);
 
   useEffect(() => {
-
+    console.log({ toDo });
   }, [toDo, showSuccess]);
 
   // GraphQL variables

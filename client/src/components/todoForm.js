@@ -4,7 +4,7 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { CREATE_TODO, EDIT_TODO, QUERY_MY_TODOS } from "../utils";
 
 const ToDoForm = (props) => {
-  const [toDo, setToDo] = useState({
+  const [toDo, setToDo] = useState(props.toDo || {
     name: "",
     description: "",
     due: "",

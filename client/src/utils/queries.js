@@ -22,7 +22,7 @@ query GetMyToDos {
 `;
 
 export const QUERY_ONE_TODO = gql `
-query GetOneToDo($id: String!) {
+query GetOneToDo($id: ID!) {
   GetOneToDo(_id: $id) {
     _id
     name

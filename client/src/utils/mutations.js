@@ -24,7 +24,7 @@ mutation createToDo($name: String!, $description: String!, $due: String, $done: 
 `;
 
 export const DELETE_TODO = gql`
-  mutation deleteToDo($id: String!) {
+  mutation deleteToDo($id: ID!) {
     deleteToDo(_id: $id) {
       _id
       name

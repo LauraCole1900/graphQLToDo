@@ -13,15 +13,13 @@ const resolvers = {
     },
     GetMyToDos: async (_, __, context) => {
       if (context.user) {
-        const todos = await ToDo.find({ userId: context.user._id })
-        console.log({todos});
-        return todos;
+        return await ToDo.find({ userId: context.user._id })
       } else {
         throw new AuthenticationError("Must be logged in");
       }
     },
-    GetOneToDo: async (_, id) => {
-      return await ToDo.findOne(id)
+    GetOneToDo: async (_, { _id }) => {
+      return await ToDo.findOne({ _id: _id });
     },
     GetOneUser: async (_, email) => {
       return User.findOne(email);

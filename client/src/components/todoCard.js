@@ -9,7 +9,7 @@ const ToDoCard = (props) => {
 
   // Delete
   const [deleteToDo, { loading: deleting, deleteError, deleteData }] = useMutation(DELETE_TODO, {
-    update(cache, { data: {deleteToDo}}) {
+    update(cache, { data: { deleteToDo } }) {
       try {
         const data = cache.readQuery({ query: QUERY_MY_TODOS });
         const toDos = data.GetMyToDos;
@@ -77,10 +77,11 @@ const ToDoCard = (props) => {
   // Handles click on "Edit" button
   const handleEdit = async (e, toDoId) => {
     e.preventDefault();
+    console.log({ toDoId });
     const { name } = e.target;
     // Runs GetOneToDo query
     GetOneToDo({ variables: { id: toDoId } });
-    if (loading) return null;
+    console.log({ data });
     if (data) {
       // Sets button name to "Edit"
       props.setBtnName(name);
