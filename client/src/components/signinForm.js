@@ -7,14 +7,21 @@ import Auth from '../utils/auth';
 import "./style.css";
 
 const SigninForm = (props) => {
+
+  //===============//
+  //     State     //
+  //===============//
+
   const [user, setUser] = useState({
     email: "",
     password: ""
   });
   const history = useHistory();
 
-  // GraphQL variables
-  const email = user.email;
+
+  //===============//
+  //   Mutations   //
+  //===============//
 
   // Add new user
   const [addUser, { addError, addData }] = useMutation(ADD_USER);
@@ -22,6 +29,11 @@ const SigninForm = (props) => {
   // Login user
   const [login, { error }] = useMutation(LOGIN);
 
+
+  //===============//
+  //    Methods    //
+  //===============//
+  
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;

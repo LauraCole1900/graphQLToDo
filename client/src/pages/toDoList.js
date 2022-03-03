@@ -7,6 +7,11 @@ import { CREATE_TODO, EDIT_TODO, QUERY_MY_TODOS } from "../utils/gql";
 import Auth from "../utils/auth";
 
 const ToDoListPage = () => {
+
+  //===============//
+  //     State     //
+  //===============//
+
   const [toDo, setToDo] = useState({
     name: "",
     description: "",
@@ -18,20 +23,31 @@ const ToDoListPage = () => {
   const [showError, setShowError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  // Modal methods
+
+  //===============//
+  // Modal methods //
+  //===============//
+
   const handleShowError = () => setShowError(true);
   const handleHideError = () => setShowError(false);
   const handleShowSuccess = () => setShowSuccess(true);
   const handleHideSuccess = () => setShowSuccess(false);
 
 
-  // GraphQL variables
+  //===============//
+  //    Queries    //
+  //===============//
 
-  // Query to-dos by user ID
+  // Queries & sorts to-dos for currently-logged-in user
   const { loading, data } = useQuery(QUERY_MY_TODOS);
   const todoArr = data?.GetMyToDos || [];
   const arrToSort = [...todoArr];
   const sortedToDos = arrToSort.sort((a, b) => (a.due > b.due) ? 1 : -1);
+
+
+  //===============//
+  //   Mutations   //
+  //===============//
 
   // Create new to-do
   const [createToDo, { error }] = useMutation(CREATE_TODO, {

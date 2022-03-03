@@ -5,7 +5,9 @@ import { DELETE_TODO, MARK_DONE, QUERY_MY_TODOS, QUERY_ONE_TODO } from "../utils
 
 const ToDoCard = (props) => {
 
-  // GraphQL variables
+  //===============//
+  //   Mutations   //
+  //===============//
 
   // Delete
   const [deleteToDo, { loading: deleting, deleteError, deleteData }] = useMutation(DELETE_TODO, {
@@ -39,24 +41,25 @@ const ToDoCard = (props) => {
     }
   });
 
+
+  //===============//
+  //    Queries    //
+  //===============//
+
   // Edit
-  const [GetOneToDo, { loading, data, error }] = useLazyQuery(QUERY_ONE_TODO)
+  const [GetOneToDo, { loading, data, error }] = useLazyQuery(QUERY_ONE_TODO);
+
+
+  //===============//
+  //    Methods    //
+  //===============//
 
   // Handles click on checkbox
   const handleCheckbox = async (e, toDoId) => {
     let isThisDone;
     const { name, value } = e.target;
-    // Sets boolean based on current checkbox value
-    switch (value) {
-      case "true":
-        isThisDone = false;
-        break;
-      default:
-        isThisDone = true;
-    }
-    // Sets button name to "Done"
+    value ? isThisDone = false : isThisDone = true;
     props.setBtnName(name)
-    // Runs markDone mutation
     try {
       await markDone({
         variables: { id: toDoId, done: isThisDone }
@@ -64,9 +67,7 @@ const ToDoCard = (props) => {
     }
     catch (error) {
       console.log(JSON.parse(JSON.stringify(error)));
-      // Sets error message in state for use on error modal
       props.setErrMessage(error.message);
-      // Shows error modal
       props.handleShowError();
     }
   }
@@ -94,22 +95,17 @@ const ToDoCard = (props) => {
   const handleDelete = async (e, toDoId) => {
     e.preventDefault();
     const { name } = e.target;
-    // Sets button name to "Delete"
     props.setBtnName(name);
-    // Runs deleteToDo mutation
     try {
       if (deleting) return;
       await deleteToDo({
         variables: { id: toDoId }
       });
-      // Shows success modal
       props.handleShowSuccess();
     }
     catch (error) {
       console.log(JSON.parse(JSON.stringify(error)));
-      // Sets error message in state for use on error modal
       props.setErrMessage(error.message);
-      // Shows error modal
       props.handleShowError();
     }
   }

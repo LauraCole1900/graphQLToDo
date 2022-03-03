@@ -3,14 +3,15 @@ const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
+
+  //===============//
+  //    Queries    //
+  //===============//
   Query: {
-    GetMe: async (_, args, context) => {
-      if (context.user) {
-        return User.findOne({ _id: context.user._id }).select("-__v -password");
-      } else {
-        throw new AuthenticationError("Must be logged in");
-      }
-    },
+
+    //===================//
+    //   To-Do Queries   //
+    //===================//
     GetMyToDos: async (_, __, context) => {
       if (context.user) {
         return await ToDo.find({ userId: context.user._id })
@@ -18,32 +19,67 @@ const resolvers = {
         throw new AuthenticationError("Must be logged in");
       }
     },
+
     GetOneToDo: async (_, { _id }) => {
       return await ToDo.findOne({ _id: _id });
     },
-    GetOneUser: async (_, email) => {
-      return User.findOne(email);
-    },
+
     GetToDos: async () => {
       return ToDo.find({})
     },
+
+
+    //==================//
+    //   User Queries   //
+    //==================//
+    GetMe: async (_, __, context) => {
+      if (context.user) {
+        return User.findOne({ _id: context.user._id }).select("-__v -password");
+      } else {
+        throw new AuthenticationError("Must be logged in");
+      }
+    },
+
+    GetOneUser: async (_, email) => {
+      return User.findOne(email);
+    },
   },
 
+
+  //===============//
+  //   Mutations   //
+  //===============//
   Mutation: {
+
+    //===================//
+    //  To-Do Mutations  //
+    //===================//
+    createToDo: async (_, { name, description, due, done }, context) => {
+      return await ToDo.create({ userId: context.user._id, name: name, description: description, due: due, done: done })
+    },
+
+    deleteToDo: async (_, { _id }) => {
+      return await ToDo.findOneAndDelete({ _id: _id });
+    },
+
+    editToDo: async (_, { _id, name, description, due }) => {
+      return await ToDo.findOneAndUpdate({ _id: _id }, { name, description, due }, { new: true })
+    },
+
+    markDone: async (_, { _id, done }) => {
+      return await ToDo.findOneAndUpdate({ _id: _id }, { done })
+    },
+
+
+    //==================//
+    //  User Mutations  //
+    //==================//
     addUser: async (_, { email, password }) => {
       const user = await User.create({ email, password });
       const token = signToken(user);
       return { token, user };
     },
-    createToDo: async (_, { name, description, due, done }, context) => {
-      return await ToDo.create({ userId: context.user._id, name: name, description: description, due: due, done: done })
-    },
-    deleteToDo: async (_, _id) => {
-      return await ToDo.findOneAndDelete(_id)
-    },
-    editToDo: async (_, { _id, name, description, due }) => {
-      return await ToDo.findOneAndUpdate({ _id: _id }, { name, description, due }, { new: true })
-    },
+
     login: async (_, { email, password }) => {
       const user = await User.findOne({ email: email });
       if (!user) {
@@ -57,9 +93,6 @@ const resolvers = {
       }
       const token = signToken(user);
       return { token, user };
-    },
-    markDone: async (_, { _id, done }) => {
-      return await ToDo.findOneAndUpdate({ _id: _id }, { done })
     }
   }
 }

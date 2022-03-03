@@ -1,13 +1,8 @@
 import { gql } from '@apollo/client';
 
-export const QUERY_ME = gql`
-query GetMe($email: String!) {
-  GetMe(email: $email) {
-    _id
-    email
-  }
-}
-`;
+//===================//
+//  To-Do Mutations  //
+//===================//
 
 export const QUERY_MY_TODOS = gql`
 query GetMyToDos {
@@ -21,7 +16,7 @@ query GetMyToDos {
 }
 `;
 
-export const QUERY_ONE_TODO = gql `
+export const QUERY_ONE_TODO = gql`
 query GetOneToDo($id: ID!) {
   GetOneToDo(_id: $id) {
     _id
@@ -29,16 +24,6 @@ query GetOneToDo($id: ID!) {
     description
     due
     done
-  }
-}
-`;
-
-export const QUERY_ONE_USER = gql`
-query GetOneUser($email: String) {
-  GetOneUser(email: $email) {
-    _id
-    email
-    password
   }
 }
 `;
@@ -51,6 +36,30 @@ query allTodos {
     description
     due
     done
+  }
+}
+`;
+
+
+//====================//
+//   User Mutations   //
+//====================//
+
+export const QUERY_ME = gql`
+query GetMe($email: String!) {
+  GetMe(email: $email) {
+    _id
+    email
+  }
+}
+`;
+
+export const QUERY_ONE_USER = gql`
+query GetOneUser($email: String) {
+  GetOneUser(email: $email) {
+    _id
+    email
+    password
   }
 }
 `;
