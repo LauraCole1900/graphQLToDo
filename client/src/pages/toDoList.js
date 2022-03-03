@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { ToDoCard, ToDoForm } from "../components";
 import { ErrorModal, SuccessModal } from "../components/modals";
-import { QUERY_MY_TODOS } from "../utils/gql";
+import { CREATE_TODO, QUERY_MY_TODOS } from "../utils/gql";
 import Auth from "../utils/auth";
 
 const ToDoListPage = () => {
@@ -36,6 +36,21 @@ const ToDoListPage = () => {
   const arrToSort = [...todoArr];
   const sortedToDos = arrToSort.sort((a, b) => (a.due > b.due) ? 1 : -1);
 
+  const [createToDo, { error }] = useMutation(CREATE_TODO, {
+    update(cache, { data: { createToDo } }) {
+      try {
+        const data = cache.readQuery({ query: QUERY_MY_TODOS });
+        const toDos = data.GetMyToDos;
+        cache.writeQuery({
+          query: QUERY_MY_TODOS,
+          data: { GetMyToDos: [...toDos, createToDo] },
+        });
+      } catch (err) {
+        console.log(JSON.parse(JSON.stringify(err)));
+      }
+    }
+  });
+
 
   return (
     <>
@@ -59,7 +74,7 @@ const ToDoListPage = () => {
         </Row>
         <Row>
           <Col sm={6}>
-            <ToDoForm setBtnName={setBtnName} handleShowSuccess={handleShowSuccess} handleShowError={handleShowError} setErrMessage={setErrMessage} btnName={btnName} toDo={toDo} setToDo={setToDo} />
+            <ToDoForm setBtnName={setBtnName} handleShowSuccess={handleShowSuccess} handleShowError={handleShowError} setErrMessage={setErrMessage} btnName={btnName} toDo={toDo} setToDo={setToDo} createToDo={createToDo} />
           </Col>
 
           <Col sm={6}>

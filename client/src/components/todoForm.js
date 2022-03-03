@@ -1,33 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { CREATE_TODO, EDIT_TODO, QUERY_MY_TODOS } from "../utils/gql";
+import { EDIT_TODO, QUERY_MY_TODOS } from "../utils/gql";
 
 const ToDoForm = (props) => {
-  // const [toDo, setToDo] = useState(props.toDo || {
-  //   name: "",
-  //   description: "",
-  //   due: "",
-  //   done: false
-  // });
+
 
   // GraphQL variables
-
-  // Create
-  const [createToDo, { error }] = useMutation(CREATE_TODO, {
-    update(cache, { data: { createToDo } }) {
-      try {
-        const data = cache.readQuery({ query: QUERY_MY_TODOS });
-        const toDos = data.GetMyToDos;
-        cache.writeQuery({
-          query: QUERY_MY_TODOS,
-          data: { GetMyToDos: [...toDos, createToDo] },
-        });
-      } catch (err) {
-        console.log(JSON.parse(JSON.stringify(err)));
-      }
-    }
-  });
 
   // Edit (Update)
   const [editToDo, { editLoading, editError, editData }] = useMutation(EDIT_TODO, {
@@ -57,7 +36,7 @@ const ToDoForm = (props) => {
     props.setBtnName(e.target.name);
     // Runs createToDo mutation
     try {
-      const { data } = await createToDo({
+      const { data } = await props.createToDo({
         variables: { ...props.toDo, done: false }
       });
       console.log({ data });
