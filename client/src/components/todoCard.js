@@ -1,7 +1,7 @@
 import React from "react";
-import { useLazyQuery, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { Button, Card, Col, InputGroup, Row } from "react-bootstrap";
-import { DELETE_TODO, MARK_DONE, QUERY_MY_TODOS, QUERY_ONE_TODO } from "../utils/gql";
+import { DELETE_TODO, MARK_DONE, QUERY_MY_TODOS } from "../utils/gql";
 
 const ToDoCard = (props) => {
 
@@ -43,14 +43,6 @@ const ToDoCard = (props) => {
 
 
   //===============//
-  //    Queries    //
-  //===============//
-
-  // Edit
-  const [GetOneToDo, { loading, data, error }] = useLazyQuery(QUERY_ONE_TODO);
-
-
-  //===============//
   //    Methods    //
   //===============//
 
@@ -71,7 +63,6 @@ const ToDoCard = (props) => {
       props.handleShowError();
     }
   }
-  if (error) return error;
 
   // Handles click on "Edit" button
   const handleEdit = async (e, toDoId) => {
@@ -79,16 +70,16 @@ const ToDoCard = (props) => {
     console.log({ toDoId });
     const { name } = e.target;
     // Runs GetOneToDo query
-    GetOneToDo({ variables: { id: toDoId } });
-    console.log({ data });
-    if (data) {
+    props.getOneToDo({ variables: { id: toDoId } });
+    console.log(props.data);
+    if (props.data) {
       // Sets button name to "Edit"
       props.setBtnName(name);
       // Sets current to-do to query response
-      props.setToDo(data?.GetOneToDo);
-      return data.GetOneToDo;
+      props.setToDo(props.data?.GetOneToDo);
+      return props.data.GetOneToDo;
     }
-    if (error) console.log(JSON.parse(JSON.stringify(error)));
+    if (props.error) console.log(JSON.parse(JSON.stringify(props.error)));
   }
 
   // Handles click on "Delete" button

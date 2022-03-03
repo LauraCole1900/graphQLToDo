@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { useMutation, useQuery } from "@apollo/client";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { ToDoCard, ToDoForm } from "../components";
 import { ErrorModal, SuccessModal } from "../components/modals";
-import { CREATE_TODO, EDIT_TODO, QUERY_MY_TODOS } from "../utils/gql";
+import { CREATE_TODO, EDIT_TODO, QUERY_MY_TODOS, QUERY_ONE_TODO } from "../utils/gql";
 import Auth from "../utils/auth";
 
 const ToDoListPage = () => {
@@ -43,6 +43,9 @@ const ToDoListPage = () => {
   const todoArr = data?.GetMyToDos || [];
   const arrToSort = [...todoArr];
   const sortedToDos = arrToSort.sort((a, b) => (a.due > b.due) ? 1 : -1);
+
+  // Queries single to-do to edit
+  const [GetOneToDo, { loading: oneLoading, data: oneData, error: oneError }] = useLazyQuery(QUERY_ONE_TODO);
 
 
   //===============//
@@ -95,7 +98,7 @@ const ToDoListPage = () => {
           </Col>
 
           <Col sm={6}>
-            <ToDoCard toDos={sortedToDos} setErrMessage={setErrMessage} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} btnName={btnName} setBtnName={setBtnName} toDo={toDo} setToDo={setToDo} />
+            <ToDoCard toDos={sortedToDos} setErrMessage={setErrMessage} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} btnName={btnName} setBtnName={setBtnName} toDo={toDo} setToDo={setToDo} getOneToDo={GetOneToDo} data={oneData} error={oneError} />
           </Col>
         </Row>
 
