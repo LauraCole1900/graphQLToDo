@@ -60,9 +60,7 @@ const ToDoCard = (props) => {
     try {
       await markDone({
         variables: { id: toDoId, done: isThisDone }
-      })
-      // Shows success modal
-      props.handleShowSuccess();
+      });
     }
     catch (error) {
       console.log(JSON.parse(JSON.stringify(error)));
