@@ -9,19 +9,7 @@ const ToDoForm = (props) => {
   // GraphQL variables
 
   // Edit (Update)
-  const [editToDo, { editLoading, editError, editData }] = useMutation(EDIT_TODO, {
-    update(cache, { data: { editToDo } }) {
-      try {
-        const { toDos } = cache.readQuery({ query: QUERY_MY_TODOS });
-        cache.writeQuery({
-          query: QUERY_MY_TODOS,
-          data: { toDos: [...toDos, editToDo] },
-        });
-      } catch (err) {
-        console.log(JSON.parse(JSON.stringify(err)));
-      }
-    }
-  });
+  // const [editToDo, { editLoading, editError, editData }] = useMutation(EDIT_TODO);
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
@@ -62,9 +50,10 @@ const ToDoForm = (props) => {
     props.setBtnName(e.target.name);
     // Runs editToDo mutation
     try {
-      const editData = await editToDo({
+      const data = await props.editToDo({
         variables: { id: props.toDo._id, ...props.toDo }
       });
+      console.log({ data });
       // Shows success modal
       props.handleShowSuccess();
       // Resets form

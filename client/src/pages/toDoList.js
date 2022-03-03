@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
 import { ToDoCard, ToDoForm } from "../components";
 import { ErrorModal, SuccessModal } from "../components/modals";
-import { CREATE_TODO, QUERY_MY_TODOS } from "../utils/gql";
+import { CREATE_TODO, EDIT_TODO, QUERY_MY_TODOS } from "../utils/gql";
 import Auth from "../utils/auth";
 
 const ToDoListPage = () => {
@@ -24,9 +24,6 @@ const ToDoListPage = () => {
   const handleShowSuccess = () => setShowSuccess(true);
   const handleHideSuccess = () => setShowSuccess(false);
 
-  useEffect(() => {
-    console.log({ toDo });
-  }, [toDo, showSuccess]);
 
   // GraphQL variables
 
@@ -36,6 +33,7 @@ const ToDoListPage = () => {
   const arrToSort = [...todoArr];
   const sortedToDos = arrToSort.sort((a, b) => (a.due > b.due) ? 1 : -1);
 
+  // Create new to-do
   const [createToDo, { error }] = useMutation(CREATE_TODO, {
     update(cache, { data: { createToDo } }) {
       try {
@@ -50,6 +48,9 @@ const ToDoListPage = () => {
       }
     }
   });
+
+  // Edit (Update)
+  const [editToDo, { editLoading, editError, editData }] = useMutation(EDIT_TODO);
 
 
   return (
@@ -74,7 +75,7 @@ const ToDoListPage = () => {
         </Row>
         <Row>
           <Col sm={6}>
-            <ToDoForm setBtnName={setBtnName} handleShowSuccess={handleShowSuccess} handleShowError={handleShowError} setErrMessage={setErrMessage} btnName={btnName} toDo={toDo} setToDo={setToDo} createToDo={createToDo} />
+            <ToDoForm setBtnName={setBtnName} handleShowSuccess={handleShowSuccess} handleShowError={handleShowError} setErrMessage={setErrMessage} btnName={btnName} toDo={toDo} setToDo={setToDo} createToDo={createToDo} editToDo={editToDo} />
           </Col>
 
           <Col sm={6}>
