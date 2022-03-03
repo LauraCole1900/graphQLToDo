@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { CREATE_TODO, EDIT_TODO, QUERY_MY_TODOS } from "../utils";
+import { CREATE_TODO, EDIT_TODO, QUERY_MY_TODOS } from "../utils/gql";
 
 const ToDoForm = (props) => {
   // const [toDo, setToDo] = useState(props.toDo || {

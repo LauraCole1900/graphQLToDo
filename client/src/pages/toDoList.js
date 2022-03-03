@@ -3,7 +3,7 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
 import { ToDoCard, ToDoForm } from "../components";
 import { ErrorModal, SuccessModal } from "../components/modals";
-import { QUERY_MY_TODOS, ToDoProvider } from "../utils";
+import { QUERY_MY_TODOS } from "../utils/gql";
 import Auth from "../utils/auth";
 
 const ToDoListPage = () => {

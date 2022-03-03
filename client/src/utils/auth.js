@@ -34,7 +34,7 @@ class AuthService {
   // POST user token to localStorage
   login(idToken) {
     localStorage.setItem("id_token", idToken);
-    window.location.assign("/");
+    window.location.assign("/mytodos");
   };
 
   // DELETE user token and profile data from localStorage,

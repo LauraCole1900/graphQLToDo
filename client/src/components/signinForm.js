@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { Button, Col, Form, Row } from "react-bootstrap"
-import { ADD_USER, LOGIN } from "../utils";
+import { ADD_USER, LOGIN } from "../utils/gql";
 import Auth from '../utils/auth';
 import "./style.css";
 
