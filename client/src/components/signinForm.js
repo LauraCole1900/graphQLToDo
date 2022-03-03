@@ -31,6 +31,7 @@ const SigninForm = (props) => {
   // Handles button click
   const handleButtonClick = async (e) => {
     e.preventDefault();
+    console.log({ user });
     // Sets button name in state
     props.setBtnName(props.buttonName);
     switch (props.buttonName) {
@@ -40,10 +41,8 @@ const SigninForm = (props) => {
           const { data } = await addUser({
             variables: { ...user }
           });
-          // Shows success modal
-          props.handleShowSuccess();
-          // Resets form
-          setUser({ email: "", password: "" });
+          Auth.login(data.addUser.token);
+          history.push(`/mytodos`);
         }
         catch (error) {
           console.log(JSON.stringify(error.message));

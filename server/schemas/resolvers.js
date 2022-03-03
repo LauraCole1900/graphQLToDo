@@ -31,7 +31,9 @@ const resolvers = {
 
   Mutation: {
     addUser: async (_, { email, password }) => {
-      return await User.create({ email, password })
+      const user = await User.create({ email, password });
+      const token = signToken(user);
+      return { token, user };
     },
     createToDo: async (_, { name, description, due, done }, context) => {
       return await ToDo.create({ userId: context.user._id, name: name, description: description, due: due, done: done })
