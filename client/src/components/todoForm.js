@@ -4,12 +4,12 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { CREATE_TODO, EDIT_TODO, QUERY_MY_TODOS } from "../utils";
 
 const ToDoForm = (props) => {
-  const [toDo, setToDo] = useState(props.toDo || {
-    name: "",
-    description: "",
-    due: "",
-    done: false
-  });
+  // const [toDo, setToDo] = useState(props.toDo || {
+  //   name: "",
+  //   description: "",
+  //   due: "",
+  //   done: false
+  // });
 
   // GraphQL variables
 
@@ -47,24 +47,24 @@ const ToDoForm = (props) => {
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setToDo({ ...toDo, [name]: value });
+    props.setToDo({ ...props.toDo, [name]: value });
   };
 
   // Handles form submit
   const handleSubmit = async (e) => {
-    console.log({ toDo });
+    console.log(props.toDo);
     e.preventDefault();
     props.setBtnName(e.target.name);
     // Runs createToDo mutation
     try {
       const { data } = await createToDo({
-        variables: { ...toDo, done: false }
+        variables: { ...props.toDo, done: false }
       });
       console.log({ data });
       // Shows success modal
       props.handleShowSuccess();
       // Resets form
-      setToDo({ name: "", description: "", due: "" });
+      props.setToDo({ name: "", description: "", due: "" });
     }
     catch (error) {
       console.log(JSON.parse(JSON.stringify(error)));
@@ -73,7 +73,7 @@ const ToDoForm = (props) => {
       // Shows error modal
       props.handleShowError();
       // Resets form
-      setToDo({ name: "", description: "", due: "" });
+      props.setToDo({ name: "", description: "", due: "" });
     }
   }
 
@@ -84,12 +84,12 @@ const ToDoForm = (props) => {
     // Runs editToDo mutation
     try {
       const editData = await editToDo({
-        variables: { id: toDo._id, ...toDo }
+        variables: { id: props.toDo._id, ...props.toDo }
       });
       // Shows success modal
       props.handleShowSuccess();
       // Resets form
-      setToDo({ name: "", description: "", due: "" });
+      props.setToDo({ name: "", description: "", due: "" });
     }
     catch (error) {
       // Sets error message in state for use on error modal
@@ -97,7 +97,7 @@ const ToDoForm = (props) => {
       // Shows error modal
       props.handleShowError();
       // Resets form
-      setToDo({ name: "", description: "", due: "" });
+      props.setToDo({ name: "", description: "", due: "" });
     }
   }
 
@@ -117,17 +117,17 @@ const ToDoForm = (props) => {
           <Form className="todoForm">
             <Form.Group>
               <Form.Label>Name: <span className="red">*</span></Form.Label>
-              <Form.Control type="input" name="name" placeholder="Name of your to-do" value={toDo.name} onChange={handleInputChange} />
+              <Form.Control type="input" name="name" placeholder="Name of your to-do" value={props.toDo.name} onChange={handleInputChange} />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Description: <span className="red">*</span></Form.Label>
-              <Form.Control as="textarea" rows={3} name="description" placeholder="Description of your to-do" value={toDo.description} onChange={handleInputChange} />
+              <Form.Control as="textarea" rows={3} name="description" placeholder="Description of your to-do" value={props.toDo.description} onChange={handleInputChange} />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Due:</Form.Label>
-              <Form.Control type="date" name="due" placeholder="3/15/2020" value={toDo.due} onChange={handleInputChange} />
+              <Form.Control type="date" name="due" placeholder="3/15/2020" value={props.toDo.due} onChange={handleInputChange} />
             </Form.Group>
           </Form>
 

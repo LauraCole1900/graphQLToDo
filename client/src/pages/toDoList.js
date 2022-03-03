@@ -7,7 +7,12 @@ import { QUERY_MY_TODOS, ToDoProvider } from "../utils";
 import Auth from "../utils/auth";
 
 const ToDoListPage = () => {
-  const [toDo, setToDo] = useState();
+  const [toDo, setToDo] = useState({
+    name: "",
+    description: "",
+    due: "",
+    done: false
+  });
   const [btnName, setBtnName] = useState();
   const [errMessage, setErrMessage] = useState();
   const [showError, setShowError] = useState(false);
@@ -54,7 +59,7 @@ const ToDoListPage = () => {
         </Row>
         <Row>
           <Col sm={6}>
-            <ToDoForm setBtnName={setBtnName} handleShowSuccess={handleShowSuccess} handleShowError={handleShowError} setErrMessage={setErrMessage} btnName={btnName} toDo={toDo} />
+            <ToDoForm setBtnName={setBtnName} handleShowSuccess={handleShowSuccess} handleShowError={handleShowError} setErrMessage={setErrMessage} btnName={btnName} toDo={toDo} setToDo={setToDo} />
           </Col>
 
           <Col sm={6}>
