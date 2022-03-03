@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Col, Modal, Row } from "react-bootstrap";
-import { SigninForm } from "../";
 import "./style.css";
 
 const SuccessModal = (props) => {
@@ -17,19 +16,6 @@ const SuccessModal = (props) => {
           </Row>
         </Modal.Title>
         <Modal.Body>
-          {props.buttonName === "Login" &&
-            <>
-              <Row>
-                <Col sm={12}>
-                  <p>You've signed up for My GraphQL To-Do app. Please log in to continue.</p>
-                </Col>
-              </Row>
-              <Row>
-                <Col sm={12}>
-                  <SigninForm setBtnName={props.setBtnName} buttonName={props.buttonName} handleClick={props.handleClick} setErrMessage={props.setErrMessage} handleShowError={props.handleShowError} />
-                </Col>
-              </Row>
-            </>}
           {props.btnName === "Create" &&
             <>
               <Row>
@@ -43,14 +29,6 @@ const SuccessModal = (props) => {
               <Row>
                 <Col sm={12}>
                   <p>You've deleted your to-do!</p>
-                </Col>
-              </Row>
-            </>}
-            {props.btnName === "Done" &&
-            <>
-              <Row>
-                <Col sm={12}>
-                  <p>Your to-do's doneness has been changed!</p>
                 </Col>
               </Row>
             </>}

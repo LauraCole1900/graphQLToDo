@@ -33,7 +33,7 @@ const ErrorModal = (props) => {
                 <>
                   <p>Your login information couldn't be located at this time. Are you sure you've signed up?</p>
                   {props.errMessage === "Incorrect password" &&
-                    <p>The entered password does not match our records.</p>}
+                    <p>The login information you entered does not match our records.</p>}
                 </>}
               {(props.btnName === "Create") &&
                 <>
