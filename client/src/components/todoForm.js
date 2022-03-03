@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useMutation } from "@apollo/client";
+import React from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { EDIT_TODO, QUERY_MY_TODOS } from "../utils/gql";
+
 
 const ToDoForm = (props) => {
 
-
-  // GraphQL variables
-
-  // Edit (Update)
-  // const [editToDo, { editLoading, editError, editData }] = useMutation(EDIT_TODO);
+  //===============//
+  //    Methods    //
+  //===============//
 
   // Handles input changes to form fields
   const handleInputChange = (e) => {
@@ -22,24 +19,18 @@ const ToDoForm = (props) => {
     console.log(props.toDo);
     e.preventDefault();
     props.setBtnName(e.target.name);
-    // Runs createToDo mutation
     try {
       const { data } = await props.createToDo({
         variables: { ...props.toDo, done: false }
       });
       console.log({ data });
-      // Shows success modal
       props.handleShowSuccess();
-      // Resets form
       props.setToDo({ name: "", description: "", due: "" });
     }
     catch (error) {
       console.log(JSON.parse(JSON.stringify(error)));
-      // Sets error message in state for use on error modal
       props.setErrMessage(error.message);
-      // Shows error modal
       props.handleShowError();
-      // Resets form
       props.setToDo({ name: "", description: "", due: "" });
     }
   }
@@ -48,34 +39,20 @@ const ToDoForm = (props) => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     props.setBtnName(e.target.name);
-    // Runs editToDo mutation
     try {
       const data = await props.editToDo({
         variables: { id: props.toDo._id, ...props.toDo }
       });
       console.log({ data });
-      // Shows success modal
       props.handleShowSuccess();
-      // Resets form
       props.setToDo({ name: "", description: "", due: "" });
     }
     catch (error) {
-      // Sets error message in state for use on error modal
       props.setErrMessage(error.message);
-      // Shows error modal
       props.handleShowError();
-      // Resets form
       props.setToDo({ name: "", description: "", due: "" });
     }
   }
-
-  useEffect(() => {
-    // Checks which button is in state
-    if (props.btnName === "Edit") {
-      // If it's "edit", sets the selected to-do in state and fires rerender to populate the form
-      // setToDo(initToDo)
-    }
-  }, [])
 
 
   return (
