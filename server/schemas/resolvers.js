@@ -67,7 +67,10 @@ const resolvers = {
     },
 
     markDone: async (_, { _id, done }) => {
-      return await ToDo.findOneAndUpdate({ _id: _id }, { done })
+      console.log({ done });
+      const toDo = await ToDo.findOneAndUpdate({ _id: _id }, { done });
+      console.log({ toDo });
+      return toDo;
     },
 
 

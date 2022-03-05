@@ -30,17 +30,17 @@ const ToDoCard = (props) => {
 
   // Checkbox
   const [markDone, { markLoading, markError, markData }] = useMutation(MARK_DONE, {
-    update(cache, { data: { markDone } }) {
-      try {
-        const { toDos } = cache.readQuery({ query: QUERY_MY_TODOS });
-        cache.writeQuery({
-          query: QUERY_MY_TODOS,
-          data: { toDos: [...toDos, markDone] },
-        })
-      } catch (err) {
-        console.log(JSON.parse(JSON.stringify(err)));
-      }
-    }
+    // update(cache, { data: { markDone } }) {
+    //   try {
+    //     const { toDos } = cache.readQuery({ query: QUERY_MY_TODOS });
+    //     cache.writeQuery({
+    //       query: QUERY_MY_TODOS,
+    //       data: { toDos: [...toDos, markDone] },
+    //     })
+    //   } catch (err) {
+    //     console.log(JSON.parse(JSON.stringify(err)));
+    //   }
+    // }
   });
 
 
@@ -52,7 +52,9 @@ const ToDoCard = (props) => {
   const handleCheckbox = async (e, toDoId) => {
     let isThisDone;
     const { name, value } = e.target;
-    value ? isThisDone = false : isThisDone = true;
+    console.log({ value });
+    JSON.parse(value) ? isThisDone = false : isThisDone = true;
+    console.log({ isThisDone });
     props.setBtnName(name)
     try {
       await markDone({

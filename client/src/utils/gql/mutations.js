@@ -45,6 +45,7 @@ mutation editToDo($id: ID!, $name: String!, $description: String!, $due: String)
 export const MARK_DONE = gql`
 mutation markDone($id: ID!, $done: Boolean!) {
   markDone(_id: $id, done: $done) {
+    _id
     done
   }
 }
