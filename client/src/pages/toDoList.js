@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Button, Col, Container, Row } from "react-bootstrap";

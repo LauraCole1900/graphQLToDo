@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { useMutation } from "@apollo/client";
 import { Button, Card, Col, InputGroup, Row } from "react-bootstrap";
