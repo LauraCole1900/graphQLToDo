@@ -70,18 +70,17 @@ const ToDoCard = (props) => {
     e.preventDefault();
     console.log({ toDoId });
     const { name } = e.target;
+    props.setToDoId(toDoId);
     // Sets button name to "Edit"
     props.setBtnName(name);
-    // Refetches GetOneToDo query
-    await props.refetch({ variables: { id: toDoId } });
-    console.log(props.data);
-    if (props.data) {
-      // Sets current to-do to query response
-      props.setToDo(props.data?.GetOneToDo);
-    }
-    if (props.error) {
-      console.log(JSON.parse(JSON.stringify(props.error)));
-      props.setErrMessage(props.error.message);
+    try {
+      // Checks whether toDoId has set in state, then refetches GetOneToDo query
+      if (props.toDoId) {
+        await props.refetch();
+      }
+    } catch (err) {
+      console.log(JSON.parse(JSON.stringify(err)));
+      props.setErrMessage(err.message);
       props.handleShowError();
     }
   }

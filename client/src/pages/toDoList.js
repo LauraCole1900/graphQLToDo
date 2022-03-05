@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
@@ -20,6 +20,7 @@ const ToDoListPage = () => {
     due: "",
     done: false
   });
+  const [toDoId, setToDoId] = useState();
   const [btnName, setBtnName] = useState();
   const [errMessage, setErrMessage] = useState();
   const [showError, setShowError] = useState(false);
@@ -48,9 +49,11 @@ const ToDoListPage = () => {
 
   // Queries single to-do to edit
   const { loading: oneLoading, data: oneData, error: oneError, refetch } = useQuery(QUERY_ONE_TODO, {
+    variables: { id: toDoId },
     skip: !btnName
   });
-  console.log(oneData?.GetOneToDo);
+  console.log("toDoList GetOneToDo", oneData?.GetOneToDo);
+  console.log("toDoList", { toDoId });
 
 
   //===============//
@@ -77,22 +80,27 @@ const ToDoListPage = () => {
   const [editToDo, { editLoading, editError, editData }] = useMutation(EDIT_TODO);
 
 
+  useEffect(() => {
+    if (oneData) {
+      setToDo(oneData?.GetOneToDo)
+    }
+  }, [oneData, toDo])
+
+
   //================//
   //  Conditionals  //
   //================//
 
-  if (loading) {
+  if (loading || oneLoading) {
     return <h1>Loading....</h1>
   }
-
-  if (!Auth.loggedIn()) {
-    <Redirect to="/" />
-  }
-
 
 
   return (
     <>
+      {!Auth.loggedIn() &&
+        <Redirect to="/" />}
+
       <Container>
 
         {loading === true &&
@@ -117,7 +125,7 @@ const ToDoListPage = () => {
           </Col>
 
           <Col sm={6}>
-            <ToDoCard toDos={sortedToDos} setErrMessage={setErrMessage} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} btnName={btnName} setBtnName={setBtnName} toDo={toDo} setToDo={setToDo} refetch={refetch} data={oneData} error={oneError} />
+            <ToDoCard toDos={sortedToDos} setErrMessage={setErrMessage} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} setBtnName={setBtnName} toDo={toDo} setToDo={setToDo} refetch={refetch}setToDoId={setToDoId} />
           </Col>
         </Row>
 

@@ -22,7 +22,9 @@ const resolvers = {
 
     GetOneToDo: async (_, { _id }) => {
       console.log({ _id });
-      return await ToDo.findOne({ _id: _id });
+      const toDo = await ToDo.findOne({ _id: _id });
+      console.log({ toDo });
+      return toDo;
     },
 
     GetToDos: async () => {
