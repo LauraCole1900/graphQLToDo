@@ -44,7 +44,6 @@ const SigninForm = (props) => {
   // Handles button click
   const handleButtonClick = async (e) => {
     e.preventDefault();
-    console.log({ user });
     // Sets button name in state
     props.setBtnName(props.buttonName);
     switch (props.buttonName) {
