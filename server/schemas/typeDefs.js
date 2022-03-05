@@ -51,7 +51,7 @@ const typeDefs = gql`
 
     GetMyToDos(userId: ID): [ToDo]
     GetOneToDo(_id: ID!): ToDo
-    GetToDos: [ToDo]
+    GetAllToDos: [ToDo]
 
 
   # //====================//

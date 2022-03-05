@@ -16,7 +16,8 @@ const ToDoCard = (props) => {
     update(cache, { data: { deleteToDo } }) {
       try {
         const data = cache.readQuery({ query: QUERY_MY_TODOS });
-        const toDos = data.GetMyToDos;
+        const toDos = data?.GetMyToDos || [];
+        console.log({ toDos });
         const filteredToDos = toDos.filter(toDo => toDo._id !== deleteToDo._id);
         cache.writeQuery({
           query: QUERY_MY_TODOS,
@@ -41,7 +42,7 @@ const ToDoCard = (props) => {
     let isThisDone;
     const { name, value } = e.target;
     JSON.parse(value) ? isThisDone = false : isThisDone = true;
-    props.setToDoId(toDoId);
+    // props.setToDoId(toDoId);
     props.setBtnName(name)
     try {
       await markDone({

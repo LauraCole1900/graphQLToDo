@@ -30,7 +30,7 @@ query GetOneToDo($id: ID!) {
 
 export const QUERY_TODOS = gql`
 query allTodos {
-  todos {
+  GetAllToDos {
     _id
     name
     description

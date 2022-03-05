@@ -24,7 +24,7 @@ const resolvers = {
       return await ToDo.findOne({ _id: _id });
     },
 
-    GetToDos: async () => {
+    GetAllToDos: async () => {
       return ToDo.find({})
     },
 
