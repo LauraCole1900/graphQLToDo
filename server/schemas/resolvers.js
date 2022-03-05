@@ -21,6 +21,7 @@ const resolvers = {
     },
 
     GetOneToDo: async (_, { _id }) => {
+      console.log({ _id });
       return await ToDo.findOne({ _id: _id });
     },
 

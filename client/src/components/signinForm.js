@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useMutation } from "@apollo/client";
@@ -33,7 +34,7 @@ const SigninForm = (props) => {
   //===============//
   //    Methods    //
   //===============//
-  
+
   // Handles input changes to form fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -72,7 +73,6 @@ const SigninForm = (props) => {
           const { data } = await login({
             variables: { ...user },
           });
-          console.log({ data });
           Auth.login(data.login.token);
           history.push(`/mytodos`);
         } catch (error) {

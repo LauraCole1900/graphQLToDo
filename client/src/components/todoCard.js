@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/client";
 import { Button, Card, Col, InputGroup, Row } from "react-bootstrap";
 import { DELETE_TODO, MARK_DONE, QUERY_MY_TODOS } from "../utils/gql";
 
+
 const ToDoCard = (props) => {
 
   //===============//
@@ -69,17 +70,20 @@ const ToDoCard = (props) => {
     e.preventDefault();
     console.log({ toDoId });
     const { name } = e.target;
-    // Runs GetOneToDo query
-    props.getOneToDo({ variables: { id: toDoId } });
+    // Sets button name to "Edit"
+    props.setBtnName(name);
+    // Refetches GetOneToDo query
+    await props.refetch({ variables: { id: toDoId } });
     console.log(props.data);
     if (props.data) {
-      // Sets button name to "Edit"
-      props.setBtnName(name);
       // Sets current to-do to query response
       props.setToDo(props.data?.GetOneToDo);
-      return props.data.GetOneToDo;
     }
-    if (props.error) console.log(JSON.parse(JSON.stringify(props.error)));
+    if (props.error) {
+      console.log(JSON.parse(JSON.stringify(props.error)));
+      props.setErrMessage(props.error.message);
+      props.handleShowError();
+    }
   }
 
   // Handles click on "Delete" button

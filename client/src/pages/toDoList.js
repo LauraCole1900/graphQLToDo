@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { ToDoCard, ToDoForm } from "../components";
 import { ErrorModal, SuccessModal } from "../components/modals";
 import { CREATE_TODO, EDIT_TODO, QUERY_MY_TODOS, QUERY_ONE_TODO } from "../utils/gql";
 import Auth from "../utils/auth";
+
 
 const ToDoListPage = () => {
 
@@ -45,7 +47,10 @@ const ToDoListPage = () => {
   const sortedToDos = arrToSort.sort((a, b) => (a.due > b.due) ? 1 : -1);
 
   // Queries single to-do to edit
-  const [GetOneToDo, { loading: oneLoading, data: oneData, error: oneError }] = useLazyQuery(QUERY_ONE_TODO);
+  const { loading: oneLoading, data: oneData, error: oneError, refetch } = useQuery(QUERY_ONE_TODO, {
+    skip: !btnName
+  });
+  console.log(oneData?.GetOneToDo);
 
 
   //===============//
@@ -70,6 +75,20 @@ const ToDoListPage = () => {
 
   // Edit (Update)
   const [editToDo, { editLoading, editError, editData }] = useMutation(EDIT_TODO);
+
+
+  //================//
+  //  Conditionals  //
+  //================//
+
+  if (loading) {
+    return <h1>Loading....</h1>
+  }
+
+  if (!Auth.loggedIn()) {
+    <Redirect to="/" />
+  }
+
 
 
   return (
@@ -98,7 +117,7 @@ const ToDoListPage = () => {
           </Col>
 
           <Col sm={6}>
-            <ToDoCard toDos={sortedToDos} setErrMessage={setErrMessage} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} btnName={btnName} setBtnName={setBtnName} toDo={toDo} setToDo={setToDo} getOneToDo={GetOneToDo} data={oneData} error={oneError} />
+            <ToDoCard toDos={sortedToDos} setErrMessage={setErrMessage} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} btnName={btnName} setBtnName={setBtnName} toDo={toDo} setToDo={setToDo} refetch={refetch} data={oneData} error={oneError} />
           </Col>
         </Row>
 
