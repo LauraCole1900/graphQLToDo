@@ -68,7 +68,6 @@ const ToDoCard = (props) => {
   // Handles click on "Edit" button
   const handleEdit = async (e, toDoId) => {
     e.preventDefault();
-    console.log({ toDoId });
     const { name } = e.target;
     props.setToDoId(toDoId);
     // Sets button name to "Edit"

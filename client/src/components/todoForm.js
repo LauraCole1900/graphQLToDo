@@ -16,14 +16,12 @@ const ToDoForm = (props) => {
 
   // Handles form submit
   const handleSubmit = async (e) => {
-    console.log(props.toDo);
     e.preventDefault();
     props.setBtnName(e.target.name);
     try {
       const { data } = await props.createToDo({
         variables: { ...props.toDo, done: false }
       });
-      console.log({ data });
       props.handleShowSuccess();
       props.setToDo({ name: "", description: "", due: "" });
     }
@@ -43,7 +41,6 @@ const ToDoForm = (props) => {
       const data = await props.editToDo({
         variables: { id: props.toDo._id, ...props.toDo }
       });
-      console.log({ data });
       props.handleShowSuccess();
       props.setToDo({ name: "", description: "", due: "" });
     }

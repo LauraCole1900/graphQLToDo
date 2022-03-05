@@ -52,8 +52,6 @@ const ToDoListPage = () => {
     variables: { id: toDoId },
     skip: !btnName
   });
-  console.log("toDoList GetOneToDo", oneData?.GetOneToDo);
-  console.log("toDoList", { toDoId });
 
 
   //===============//
@@ -84,7 +82,7 @@ const ToDoListPage = () => {
     if (oneData) {
       setToDo(oneData?.GetOneToDo)
     }
-  }, [oneData, toDo])
+  }, [oneData])
 
 
   //================//
