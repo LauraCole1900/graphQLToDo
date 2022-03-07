@@ -83,7 +83,7 @@ const ToDoListPage = () => {
     if (oneData) {
       setToDo(oneData?.GetOneToDo)
     }
-  }, [oneData])
+  }, [oneData]);
 
 
   //================//
@@ -92,7 +92,7 @@ const ToDoListPage = () => {
 
   if (loading || oneLoading) {
     return <h1>Loading....</h1>
-  }
+  };
 
 
   return (

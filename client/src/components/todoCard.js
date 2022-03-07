@@ -54,7 +54,7 @@ const ToDoCard = (props) => {
       props.setErrMessage(error.message);
       props.handleShowError();
     }
-  }
+  };
 
   // Handles click on "Edit" button
   const handleEdit = async (e, toDoId) => {
@@ -72,7 +72,7 @@ const ToDoCard = (props) => {
       props.setErrMessage(err.message);
       props.handleShowError();
     }
-  }
+  };
 
   // Handles click on "Delete" button
   const handleDelete = async (e, toDoId) => {
@@ -91,7 +91,7 @@ const ToDoCard = (props) => {
       props.setErrMessage(error.message);
       props.handleShowError();
     }
-  }
+  };
 
 
   return (

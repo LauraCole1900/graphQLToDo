@@ -46,8 +46,8 @@ query allTodos {
 //====================//
 
 export const QUERY_ME = gql`
-query GetMe($email: String!) {
-  GetMe(email: $email) {
+query GetMe {
+  GetMe {
     _id
     email
   }
@@ -66,16 +66,9 @@ query GetOneUser($email: String) {
 
 export const QUERY_USERS = gql`
   query allUsers {
-    users {
+    GetAllUsers {
       _id
       email
-      todos{
-        _id
-        name
-        description
-        due
-        done
-      }
     }
   }
 `;

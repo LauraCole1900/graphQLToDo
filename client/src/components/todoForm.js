@@ -32,7 +32,7 @@ const ToDoForm = (props) => {
       props.handleShowError();
       props.setToDo({ name: "", description: "", due: "" });
     }
-  }
+  };
 
   // Handles form update
   const handleUpdate = async (e) => {
@@ -57,7 +57,7 @@ const ToDoForm = (props) => {
     e.preventDefault();
     props.setBtnName("Create");
     props.setToDo({ name: "", description: "", due: "", done: false });
-  }
+  };
 
 
   return (
