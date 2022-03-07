@@ -5,7 +5,7 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { useMutation, useQuery } from "@apollo/client";
 import { ToDoCard, ToDoForm } from "../components";
 import { ErrorModal, SuccessModal } from "../components/modals";
-import { CREATE_TODO, EDIT_TODO, QUERY_MY_TODOS, QUERY_ONE_TODO } from "../utils/gql";
+import { CREATE_TODO, EDIT_TODO, MARK_DONE, QUERY_MY_TODOS, QUERY_ONE_TODO } from "../utils/gql";
 import Auth from "../utils/auth";
 
 
@@ -51,7 +51,7 @@ const ToDoListPage = () => {
   // Queries single to-do to edit
   const { loading: oneLoading, data: oneData, error: oneError, refetch } = useQuery(QUERY_ONE_TODO, {
     variables: { id: toDoId },
-    skip: !btnName
+    skip: btnName !== "Edit"
   });
 
 
@@ -78,12 +78,17 @@ const ToDoListPage = () => {
   // Edit (Update)
   const [editToDo, { editLoading, editError, editData }] = useMutation(EDIT_TODO);
 
+  // Checkbox
+  const [markDone, { markLoading, markError, markData }] = useMutation(MARK_DONE);
+
 
   useEffect(() => {
-    if (oneData) {
-      setToDo(oneData?.GetOneToDo)
+    if (btnName === "Edit" && oneData) {
+      setToDo(oneData?.GetOneToDo);
+    } else if (btnName !== "Edit") {
+      setToDo({name: "", description: "", due: ""});
     }
-  }, [oneData]);
+  }, [btnName, oneData]);
 
 
   //================//
@@ -124,7 +129,7 @@ const ToDoListPage = () => {
           </Col>
 
           <Col sm={6}>
-            <ToDoCard toDos={sortedToDos} setErrMessage={setErrMessage} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} setBtnName={setBtnName} toDo={toDo} setToDo={setToDo} refetch={refetch} setToDoId={setToDoId} />
+            <ToDoCard toDos={sortedToDos} setErrMessage={setErrMessage} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} setBtnName={setBtnName} toDo={toDo} setToDo={setToDo} refetch={refetch} setToDoId={setToDoId} markDone={markDone} />
           </Col>
         </Row>
 

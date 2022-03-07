@@ -2,7 +2,7 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
 import { Button, Card, Col, InputGroup, Row } from "react-bootstrap";
-import { DELETE_TODO, MARK_DONE, QUERY_MY_TODOS } from "../utils/gql";
+import { DELETE_TODO, QUERY_MY_TODOS } from "../utils/gql";
 
 
 const ToDoCard = (props) => {
@@ -17,7 +17,6 @@ const ToDoCard = (props) => {
       try {
         const data = cache.readQuery({ query: QUERY_MY_TODOS });
         const toDos = data?.GetMyToDos || [];
-        console.log({ toDos });
         const filteredToDos = toDos.filter(toDo => toDo._id !== deleteToDo._id);
         cache.writeQuery({
           query: QUERY_MY_TODOS,
@@ -29,9 +28,6 @@ const ToDoCard = (props) => {
     }
   });
 
-  // Checkbox
-  const [markDone, { markLoading, markError, markData }] = useMutation(MARK_DONE);
-
 
   //===============//
   //    Methods    //
@@ -42,10 +38,10 @@ const ToDoCard = (props) => {
     let isThisDone;
     const { name, value } = e.target;
     JSON.parse(value) ? isThisDone = false : isThisDone = true;
-    // props.setToDoId(toDoId);
+    props.setToDoId(toDoId);
     props.setBtnName(name);
     try {
-      await markDone({
+      await props.markDone({
         variables: { id: toDoId, done: isThisDone }
       });
     }
