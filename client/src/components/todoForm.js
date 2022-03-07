@@ -50,6 +50,13 @@ const ToDoForm = (props) => {
       props.handleShowError();
       props.setToDo({ name: "", description: "", due: "" });
     }
+  };
+
+  // Handles clearing form
+  const handleClearForm = (e) => {
+    e.preventDefault();
+    props.setBtnName("Create");
+    props.setToDo({ name: "", description: "", due: "", done: false });
   }
 
 
@@ -74,9 +81,16 @@ const ToDoForm = (props) => {
             </Form.Group>
           </Form>
 
-          {props.btnName === "Edit"
-            ? <Button data-toggle="popover" title="Update To-Do" name="Update" className="button" onClick={(e) => handleUpdate(e)}>Update To-Do</Button>
-            : <Button data-toggle="popover" title="Create New To-Do" name="Create" className="button" onClick={(e) => handleSubmit(e)}>Create New To-Do</Button>}
+          <Row className="between">
+            <Col sm={6}>
+              {props.btnName === "Edit"
+                ? <Button data-toggle="popover" title="Update To-Do" name="Update" className="button" onClick={(e) => handleUpdate(e)}>Update To-Do</Button>
+                : <Button data-toggle="popover" title="Create New To-Do" name="Create" className="button" onClick={(e) => handleSubmit(e)}>Create New To-Do</Button>}
+            </Col>
+            <Col sm={6} className="end">
+              <Button data-toggle="popover" title="Clear Form" name="Clear" className="button" onClick={handleClearForm}>Clear Form</Button>
+            </Col>
+          </Row>
         </Col>
       </Row>
     </>

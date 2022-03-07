@@ -124,7 +124,7 @@ const ToDoListPage = () => {
           </Col>
 
           <Col sm={6}>
-            <ToDoCard toDos={sortedToDos} setErrMessage={setErrMessage} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} setBtnName={setBtnName} toDo={toDo} setToDo={setToDo} refetch={refetch}setToDoId={setToDoId} allToDos={sortedToDos} />
+            <ToDoCard toDos={sortedToDos} setErrMessage={setErrMessage} handleShowError={handleShowError} handleShowSuccess={handleShowSuccess} setBtnName={setBtnName} toDo={toDo} setToDo={setToDo} refetch={refetch} setToDoId={setToDoId} />
           </Col>
         </Row>
 

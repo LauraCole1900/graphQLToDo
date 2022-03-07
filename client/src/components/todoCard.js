@@ -43,7 +43,7 @@ const ToDoCard = (props) => {
     const { name, value } = e.target;
     JSON.parse(value) ? isThisDone = false : isThisDone = true;
     // props.setToDoId(toDoId);
-    props.setBtnName(name)
+    props.setBtnName(name);
     try {
       await markDone({
         variables: { id: toDoId, done: isThisDone }

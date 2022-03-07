@@ -10,6 +10,11 @@
   color: var(--red);
 }
 
+.end {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .cardBtns {
   display: flex;
   justify-content: space-around;

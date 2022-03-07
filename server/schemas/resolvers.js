@@ -21,7 +21,7 @@ const resolvers = {
     },
 
     GetOneToDo: async (_, { _id }) => {
-      return await ToDo.findOne({ _id: _id });
+      return await ToDo.findOne({ _id });
     },
 
     GetAllToDos: async () => {
@@ -59,15 +59,15 @@ const resolvers = {
     },
 
     deleteToDo: async (_, { _id }) => {
-      return await ToDo.findOneAndDelete({ _id: _id });
+      return await ToDo.findOneAndDelete({ _id });
     },
 
     editToDo: async (_, { _id, name, description, due }) => {
-      return await ToDo.findOneAndUpdate({ _id: _id }, { name, description, due }, { new: true })
+      return await ToDo.findOneAndUpdate({ _id }, { name, description, due }, { new: true })
     },
 
     markDone: async (_, { _id, done }) => {
-      return await ToDo.findOneAndUpdate({ _id: _id }, { done }, { new: true });
+      return await ToDo.findOneAndUpdate({ _id }, { done }, { new: true });
     },
 
 
